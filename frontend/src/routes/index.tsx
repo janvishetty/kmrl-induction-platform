@@ -2,9 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AlertTriangle, ArrowRight, TrainFront } from "lucide-react";
 import { AppShell, Citation, PageHeader } from "@/components/kmrl/AppShell";
 import { useApp } from "@/lib/kmrl/store";
-import { alerts, daysUntil, staff, trainsets } from "@/lib/kmrl/data";
+import { daysUntil } from "@/lib/kmrl/data";
+import { useApiData } from "@/lib/kmrl/hooks";
+import { fetchAlerts, fetchStaff, fetchTrainsets } from "@/lib/kmrl/api";
 import { buildPlan } from "@/lib/kmrl/planner";
 import { cn } from "@/lib/utils";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,11 +30,17 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   const { docs, lang, t } = useApp();
-  const plan = buildPlan("night-induction", "rolling-stock-fitness");
+  const { data: alertsData } = useApiData(fetchAlerts);
+  const { data: staffData } = useApiData(fetchStaff);
+  const { data: trainsetsData } = useApiData(fetchTrainsets);
+  const alerts = alertsData ?? [];
+  const staff = staffData ?? [];
+  const trainsets = trainsetsData ?? [];
+  const plan = buildPlan("night-induction", "rolling-stock-fitness", staff);
   const criticals = alerts.filter((a) => a.severity === "critical");
   const available = staff.filter((s) => s.availability === "Available").length;
   const expiringCerts = staff.flatMap((s) =>
-    s.certifications.filter((c) => daysUntil(c.expiresOn) <= 14),
+    (s.certifications ?? []).filter((c: any) => daysUntil(c.expiresOn) <= 14),
   ).length;
 
   return (
@@ -49,14 +58,12 @@ function Dashboard() {
           </Link>
         }
       />
-
       <div className="grid gap-4 md:grid-cols-4">
         <Kpi label="Documents indexed" value={String(docs.length)} sub={`${docs.filter((d) => d.status !== "Indexed").length} pending review`} />
         <Kpi label="Critical alerts" value={String(criticals.length)} sub={`${alerts.length} total open`} tone="bad" />
         <Kpi label="Staff available" value={`${available}/${staff.length}`} sub={`${expiringCerts} certs expiring ≤14d`} tone="warn" />
         <Kpi label="Induction ready" value={`${trainsets.filter((x) => x.jobCards === 0).length}/${trainsets.length}`} sub="trainsets clear of blockers" tone="ok" />
       </div>
-
       <section className="mt-6 grid gap-4 xl:grid-cols-3">
         <div className="panel p-5 xl:col-span-2">
           <p className="mono-label mb-3 flex items-center gap-2">
@@ -86,7 +93,6 @@ function Dashboard() {
             ))}
           </div>
         </div>
-
         <div className="panel border-accent/40 p-5">
           <p className="mono-label mb-3 text-accent">Tonight's recommendation</p>
           {plan.recommended && (
@@ -109,7 +115,6 @@ function Dashboard() {
           )}
         </div>
       </section>
-
       <section className="panel mt-6 p-5">
         <p className="mono-label mb-3 flex items-center gap-2 text-destructive">
           <AlertTriangle className="size-3.5" /> Critical queue

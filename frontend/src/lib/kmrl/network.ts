@@ -129,6 +129,11 @@ export const STATIONS: Station[] = [
     activeTrains: ["KMRL-203"], maintenance: "None", alerts: [],
   },
   {
+    id: "ST-13A", code: "THL", name: "Town Hall", nameMl: "ടൗൺ ഹാൾ", lat: 9.991247, lng: 76.288035,
+    state: "normal", platformStatus: "Both platforms clear", footfall: "Medium — 2.5k/hr",
+    activeTrains: [], maintenance: "None", alerts: [],
+  },
+  {
     id: "ST-14", code: "MGR", name: "MG Road", nameMl: "എം.ജി റോഡ്", lat: 9.982, lng: 76.2836,
     state: "normal", platformStatus: "Both platforms clear", footfall: "Very high — 7.2k/hr",
     activeTrains: ["KMRL-206"], maintenance: "None", alerts: [],
@@ -169,6 +174,21 @@ export const STATIONS: Station[] = [
     id: "ST-21", code: "PET", name: "Petta", nameMl: "പേട്ട", lat: 9.954, lng: 76.3268,
     state: "normal", platformStatus: "Terminal reversal normal", footfall: "Medium — 2.4k/hr",
     activeTrains: ["KMRL-212"], maintenance: "None", alerts: [],
+  },
+  {
+    id: "ST-22", code: "VDK", name: "Vadakkekotta", nameMl: "വടക്കേക്കോട്ട", lat: 9.956455, lng: 76.338644,
+    state: "normal", platformStatus: "Both platforms clear", footfall: "Medium — 1.8k/hr",
+    activeTrains: [], maintenance: "None", alerts: [],
+  },
+  {
+    id: "ST-23", code: "SNJ", name: "SN Junction", nameMl: "എസ് എൻ ജംഗ്ഷൻ", lat: 9.9547, lng: 76.3461,
+    state: "normal", platformStatus: "Both platforms clear", footfall: "Medium — 1.6k/hr",
+    activeTrains: [], maintenance: "None", alerts: [],
+  },
+  {
+    id: "ST-24", code: "TPT", name: "Tripunithura Terminal", nameMl: "തൃപ്പൂണിത്തുറ ടെർമിനൽ", lat: 9.9503, lng: 76.3516,
+    state: "normal", platformStatus: "Terminal reversal normal", footfall: "Medium — 2.4k/hr",
+    activeTrains: ["KMRL-212"], maintenance: "None", alerts: [], interchange: true,
   },
 ];
 

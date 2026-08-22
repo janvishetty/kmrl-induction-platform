@@ -211,3 +211,70 @@
 }
 .leaflet-control-attribution a { color: var(--color-primary) !important; }
 
+/* Google Maps SmartMap popups keep the same compact operations-console language. */
+.gm-style .gm-style-iw-c {
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 16px 38px rgb(11 18 24 / 0.28) !important;
+  color: var(--color-foreground);
+  padding: 14px !important;
+}
+.gm-style .gm-style-iw-d { overflow: auto !important; }
+.gm-style .gm-style-iw-t::after { background: var(--color-card) !important; }
+.gm-style .gm-ui-hover-effect { opacity: 0.7; }
+.kmrl-map-popup {
+  display: grid;
+  min-width: 220px;
+  gap: 6px;
+  color: var(--color-foreground);
+  font: 12px/1.4 var(--font-sans);
+}
+.kmrl-map-popup strong {
+  color: var(--color-primary);
+  font: 600 13px/1.2 var(--font-sans);
+}
+.kmrl-map-popup span { color: var(--color-muted-foreground); }
+
+/* MapLibre GL uses its own controls, so keep them inside the KMRL visual system. */
+.maplibregl-map { font-family: var(--font-sans); }
+.maplibregl-ctrl-group {
+  overflow: hidden;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 10px 26px rgb(11 18 24 / 0.2) !important;
+}
+.maplibregl-ctrl-group button { background: var(--color-card) !important; }
+.maplibregl-ctrl-group button:hover { background: var(--color-secondary) !important; }
+.maplibregl-popup-content {
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 16px 38px rgb(11 18 24 / 0.28) !important;
+  color: var(--color-foreground);
+  padding: 14px !important;
+}
+.maplibregl-popup-tip { border-top-color: var(--color-card) !important; border-bottom-color: var(--color-card) !important; }
+.maplibregl-popup-close-button { color: var(--color-muted-foreground); font-size: 18px; padding: 4px 8px; }
+.kmrl-map-marker {
+  display: grid;
+  min-width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 2px solid var(--marker-color);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-card) 94%, transparent);
+  box-shadow: 0 5px 14px rgb(11 18 24 / 0.2);
+  color: var(--marker-color);
+  cursor: pointer;
+  font: 700 10px/1 var(--font-mono);
+  padding: 0 7px;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.kmrl-map-marker:hover, .kmrl-map-marker.is-active { transform: scale(1.16); box-shadow: 0 0 0 4px color-mix(in oklab, var(--marker-color) 25%, transparent), 0 8px 18px rgb(11 18 24 / 0.3); }
+.kmrl-map-marker-trains { min-width: 42px; border-radius: 7px; }
+.kmrl-map-marker-stations { width: 12px; min-width: 12px; height: 12px; border-width: 2px; padding: 0; }
+.kmrl-map-marker-stations.is-active { width: 18px; min-width: 18px; height: 18px; }
+.kmrl-map-marker-maintenance { width: 22px; min-width: 22px; height: 22px; border-radius: 6px; font-size: 9px; padding: 0; }
+.kmrl-map-marker-alerts { font-size: 16px; }
+

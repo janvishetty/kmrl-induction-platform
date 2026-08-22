@@ -1,0 +1,867 @@
+{
+  "stations": [
+    {
+      "order": 1,
+      "id": "STN-01",
+      "name": "Aluva",
+      "lat": 10.1098,
+      "lng": 76.3496,
+      "isTerminal": true,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 2,
+      "id": "STN-02",
+      "name": "Pulinchodu",
+      "lat": 10.09512,
+      "lng": 76.346661,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 3,
+      "id": "STN-03",
+      "name": "Companypady",
+      "lat": 10.087293,
+      "lng": 76.34284,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 4,
+      "id": "STN-04",
+      "name": "Ambattukavu",
+      "lat": 10.079372,
+      "lng": 76.339004,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 5,
+      "id": "STN-05",
+      "name": "Muttom",
+      "lat": 10.0727,
+      "lng": 76.3337,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 6,
+      "id": "STN-06",
+      "name": "Kalamassery",
+      "lat": 10.0584,
+      "lng": 76.321926,
+      "isTerminal": false,
+      "isTransfer": true,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 7,
+      "id": "STN-07",
+      "name": "Cochin University",
+      "lat": 10.048006,
+      "lng": 76.318495,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 8,
+      "id": "STN-08",
+      "name": "Pathadipalam",
+      "lat": 10.037613,
+      "lng": 76.315063,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 9,
+      "id": "STN-09",
+      "name": "Edapally",
+      "lat": 10.027219,
+      "lng": 76.311632,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 10,
+      "id": "STN-10",
+      "name": "Changampuzha Park",
+      "lat": 10.016826,
+      "lng": 76.3082,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 11,
+      "id": "STN-11",
+      "name": "Palarivattom",
+      "lat": 10.006432,
+      "lng": 76.304769,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 12,
+      "id": "STN-12",
+      "name": "JLN Stadium",
+      "lat": 10.000458,
+      "lng": 76.298219,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 13,
+      "id": "STN-13",
+      "name": "Kaloor",
+      "lat": 9.994484,
+      "lng": 76.291669,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 14,
+      "id": "STN-14",
+      "name": "Town Hall",
+      "lat": 9.991247,
+      "lng": 76.288035,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 15,
+      "id": "STN-15",
+      "name": "M.G. Road",
+      "lat": 9.982367,
+      "lng": 76.286525,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 16,
+      "id": "STN-16",
+      "name": "Maharaja's College",
+      "lat": 9.973487,
+      "lng": 76.285015,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 17,
+      "id": "STN-17",
+      "name": "Ernakulam South",
+      "lat": 9.967756,
+      "lng": 76.291278,
+      "isTerminal": false,
+      "isTransfer": true,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 18,
+      "id": "STN-18",
+      "name": "Kadavanthra",
+      "lat": 9.966547,
+      "lng": 76.298185,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 19,
+      "id": "STN-19",
+      "name": "Elamkulam",
+      "lat": 9.964353,
+      "lng": 76.306701,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 20,
+      "id": "STN-20",
+      "name": "Vyttila",
+      "lat": 9.962158,
+      "lng": 76.315217,
+      "isTerminal": false,
+      "isTransfer": true,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 21,
+      "id": "STN-21",
+      "name": "Thaikoodam",
+      "lat": 9.959964,
+      "lng": 76.323733,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 22,
+      "id": "STN-22",
+      "name": "Petta",
+      "lat": 9.958209,
+      "lng": 76.331189,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 23,
+      "id": "STN-23",
+      "name": "Vadakkekotta",
+      "lat": 9.956455,
+      "lng": 76.338644,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "interpolated"
+    },
+    {
+      "order": 24,
+      "id": "STN-24",
+      "name": "SN Junction",
+      "lat": 9.9547,
+      "lng": 76.3461,
+      "isTerminal": false,
+      "isTransfer": false,
+      "coordSource": "confirmed"
+    },
+    {
+      "order": 25,
+      "id": "STN-25",
+      "name": "Tripunithura Terminal",
+      "lat": 9.9503,
+      "lng": 76.3516,
+      "isTerminal": true,
+      "isTransfer": true,
+      "coordSource": "confirmed"
+    }
+  ],
+  "trainsets": [
+    {
+      "id": "TS-01",
+      "status": "SERVICE",
+      "km": 393810,
+      "cleaning": "Pending",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-08-18",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": {
+        "advertiser": "Lulu Mall",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 297,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 1
+    },
+    {
+      "id": "TS-02",
+      "status": "SERVICE",
+      "km": 328289,
+      "cleaning": "Scheduled",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-18",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": {
+        "advertiser": "Kerala Bank",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 348,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 2
+    },
+    {
+      "id": "TS-03",
+      "status": "STANDBY",
+      "km": 314165,
+      "cleaning": "Done",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-08-13",
+      "fitnessCertStatus": "expired",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 3
+    },
+    {
+      "id": "TS-04",
+      "status": "SERVICE",
+      "km": 388907,
+      "cleaning": "Scheduled",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-13",
+      "fitnessCertStatus": "expired",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 4
+    },
+    {
+      "id": "TS-05",
+      "status": "SERVICE",
+      "km": 401924,
+      "cleaning": "Pending",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2027-02-12",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 5
+    },
+    {
+      "id": "TS-06",
+      "status": "STANDBY",
+      "km": 346463,
+      "cleaning": "Done",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-13",
+      "fitnessCertStatus": "expired",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 6
+    },
+    {
+      "id": "TS-07",
+      "status": "IBL",
+      "km": 365392,
+      "cleaning": "Done",
+      "jobCards": 2,
+      "fitnessCertExpiresOn": "2026-09-15",
+      "fitnessCertStatus": "valid",
+      "branding": {
+        "advertiser": "Lulu Mall",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 326,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 1
+    },
+    {
+      "id": "TS-08",
+      "status": "SERVICE",
+      "km": 323396,
+      "cleaning": "Pending",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-18",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 2
+    },
+    {
+      "id": "TS-09",
+      "status": "STANDBY",
+      "km": 355082,
+      "cleaning": "Done",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2027-04-23",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 3
+    },
+    {
+      "id": "TS-10",
+      "status": "SERVICE",
+      "km": 370217,
+      "cleaning": "Pending",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2027-02-12",
+      "fitnessCertStatus": "valid",
+      "branding": {
+        "advertiser": "Kerala Bank",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 315,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 4
+    },
+    {
+      "id": "TS-11",
+      "status": "SERVICE",
+      "km": 418711,
+      "cleaning": "Pending",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2027-06-12",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 5
+    },
+    {
+      "id": "TS-12",
+      "status": "STANDBY",
+      "km": 335203,
+      "cleaning": "Done",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-08-18",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 6
+    },
+    {
+      "id": "TS-13",
+      "status": "SERVICE",
+      "km": 347930,
+      "cleaning": "Done",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-18",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": {
+        "advertiser": "Kalyan Jewellers",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 311,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 1
+    },
+    {
+      "id": "TS-14",
+      "status": "IBL",
+      "km": 369429,
+      "cleaning": "Done",
+      "jobCards": 2,
+      "fitnessCertExpiresOn": "2027-06-12",
+      "fitnessCertStatus": "valid",
+      "branding": {
+        "advertiser": "Muthoot Finance",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 330,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 2
+    },
+    {
+      "id": "TS-15",
+      "status": "STANDBY",
+      "km": 337460,
+      "cleaning": "Scheduled",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2027-06-12",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 3
+    },
+    {
+      "id": "TS-16",
+      "status": "SERVICE",
+      "km": 319358,
+      "cleaning": "Scheduled",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2027-04-23",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 4
+    },
+    {
+      "id": "TS-17",
+      "status": "SERVICE",
+      "km": 342087,
+      "cleaning": "Pending",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-20",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 5
+    },
+    {
+      "id": "TS-18",
+      "status": "STANDBY",
+      "km": 400198,
+      "cleaning": "Pending",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2027-02-12",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 6
+    },
+    {
+      "id": "TS-19",
+      "status": "SERVICE",
+      "km": 410704,
+      "cleaning": "Done",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-08-13",
+      "fitnessCertStatus": "expired",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 1
+    },
+    {
+      "id": "TS-20",
+      "status": "SERVICE",
+      "km": 351347,
+      "cleaning": "Done",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-10-15",
+      "fitnessCertStatus": "valid",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 2
+    },
+    {
+      "id": "TS-21",
+      "status": "IBL",
+      "km": 404098,
+      "cleaning": "Scheduled",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-09-15",
+      "fitnessCertStatus": "valid",
+      "branding": {
+        "advertiser": "Kalyan Jewellers",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 341,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 3
+    },
+    {
+      "id": "TS-22",
+      "status": "SERVICE",
+      "km": 394259,
+      "cleaning": "Done",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-12-14",
+      "fitnessCertStatus": "valid",
+      "branding": {
+        "advertiser": "Lulu Mall",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 377,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 4
+    },
+    {
+      "id": "TS-23",
+      "status": "SERVICE",
+      "km": 344438,
+      "cleaning": "Scheduled",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2027-04-23",
+      "fitnessCertStatus": "valid",
+      "branding": {
+        "advertiser": "Kalyan Jewellers",
+        "requiredHoursMonth": 380,
+        "loggedHoursMonth": 332,
+        "penaltyThreshold": 361
+      },
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 5
+    },
+    {
+      "id": "TS-24",
+      "status": "STANDBY",
+      "km": 338746,
+      "cleaning": "Done",
+      "jobCards": 0,
+      "fitnessCertExpiresOn": "2026-08-20",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 6
+    },
+    {
+      "id": "TS-25",
+      "status": "SERVICE",
+      "km": 316175,
+      "cleaning": "Done",
+      "jobCards": 1,
+      "fitnessCertExpiresOn": "2026-08-18",
+      "fitnessCertStatus": "expiring_soon",
+      "branding": null,
+      "stablingDepot": "Muttom Depot",
+      "stablingBay": 1
+    }
+  ],
+  "extraStaff": [
+    {
+      "id": "KM-3501",
+      "name": "Meera Krishnan",
+      "nameMl": "മീര കൃഷ്ണൻ",
+      "role": "Rolling Stock Technician",
+      "department": "Rolling Stock",
+      "depot": "Muttom Depot",
+      "experienceYears": 6,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2025-08-11",
+          "expiresOn": "2026-08-11",
+          "docId": "DOC-1170"
+        },
+        {
+          "code": "RS-B",
+          "name": "Rolling Stock B-Check Authorisation",
+          "nameMl": "റോളിംഗ് സ്റ്റോക്ക് B-ചെക്ക് അധികാരം",
+          "issuedOn": "2026-08-09",
+          "expiresOn": "2027-08-09",
+          "docId": "DOC-1042"
+        }
+      ],
+      "trainingHours12m": 89,
+      "restHoursSinceLastShift": 14,
+      "shiftsLast7Days": 6,
+      "availability": "Rest Period",
+      "competencyScore": 70,
+      "photoInitials": "MK"
+    },
+    {
+      "id": "KM-3902",
+      "name": "Arun Das",
+      "nameMl": "അരുൺ ദാസ്",
+      "role": "Signalling Technician",
+      "department": "Signalling & Telecom",
+      "depot": "Kalamassery Yard",
+      "experienceYears": 5,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2026-03-04",
+          "expiresOn": "2027-03-04",
+          "docId": "DOC-1170"
+        },
+        {
+          "code": "ATP",
+          "name": "ATP / CBTC Maintenance Licence",
+          "nameMl": "ATP / CBTC മെയിന്റനൻസ് ലൈസൻസ്",
+          "issuedOn": "2025-11-02",
+          "expiresOn": "2026-11-02",
+          "docId": "DOC-1088"
+        }
+      ],
+      "trainingHours12m": 54,
+      "restHoursSinceLastShift": 18,
+      "shiftsLast7Days": 6,
+      "availability": "Rest Period",
+      "competencyScore": 65,
+      "photoInitials": "AD"
+    },
+    {
+      "id": "KM-4210",
+      "name": "Priya Varkey",
+      "nameMl": "പ്രിയ വർക്കി",
+      "role": "Depot Safety Inspector",
+      "department": "Safety & Compliance",
+      "depot": "Muttom Depot",
+      "experienceYears": 8,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2026-06-12",
+          "expiresOn": "2027-06-12",
+          "docId": "DOC-1170"
+        }
+      ],
+      "trainingHours12m": 77,
+      "restHoursSinceLastShift": 14,
+      "shiftsLast7Days": 3,
+      "availability": "Available",
+      "competencyScore": 77,
+      "photoInitials": "PV"
+    },
+    {
+      "id": "KM-4488",
+      "name": "Sanjay Menon",
+      "nameMl": "സഞ്ജയ് മേനോൻ",
+      "role": "Train Operator",
+      "department": "Operations",
+      "depot": "Muttom Depot",
+      "experienceYears": 9,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2026-03-04",
+          "expiresOn": "2027-03-04",
+          "docId": "DOC-1170"
+        }
+      ],
+      "trainingHours12m": 104,
+      "restHoursSinceLastShift": 22,
+      "shiftsLast7Days": 2,
+      "availability": "Available",
+      "competencyScore": 82,
+      "photoInitials": "SM"
+    },
+    {
+      "id": "KM-5112",
+      "name": "Lakshmi Warrier",
+      "nameMl": "ലക്ഷ്മി വാരിയർ",
+      "role": "Housekeeping Supervisor",
+      "department": "Housekeeping",
+      "depot": "Muttom Depot",
+      "experienceYears": 4,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2026-06-12",
+          "expiresOn": "2027-06-12",
+          "docId": "DOC-1170"
+        }
+      ],
+      "trainingHours12m": 59,
+      "restHoursSinceLastShift": 13,
+      "shiftsLast7Days": 3,
+      "availability": "Rest Period",
+      "competencyScore": 68,
+      "photoInitials": "LW"
+    },
+    {
+      "id": "KM-5677",
+      "name": "Nikhil Thomas",
+      "nameMl": "നിഖിൽ തോമസ്",
+      "role": "Rolling Stock Technician",
+      "department": "Rolling Stock",
+      "depot": "Muttom Depot",
+      "experienceYears": 3,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2025-09-01",
+          "expiresOn": "2026-09-01",
+          "docId": "DOC-1170"
+        },
+        {
+          "code": "RS-B",
+          "name": "Rolling Stock B-Check Authorisation",
+          "nameMl": "റോളിംഗ് സ്റ്റോക്ക് B-ചെക്ക് അധികാരം",
+          "issuedOn": "2025-09-01",
+          "expiresOn": "2026-09-01",
+          "docId": "DOC-1042"
+        }
+      ],
+      "trainingHours12m": 102,
+      "restHoursSinceLastShift": 8,
+      "shiftsLast7Days": 2,
+      "availability": "Rest Period",
+      "competencyScore": 69,
+      "photoInitials": "NT"
+    },
+    {
+      "id": "KM-6023",
+      "name": "Anjali Pillai",
+      "nameMl": "അഞ്ജലി പിള്ള",
+      "role": "Station Controller",
+      "department": "Operations",
+      "depot": "Aluva Station",
+      "experienceYears": 7,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2025-11-02",
+          "expiresOn": "2026-11-02",
+          "docId": "DOC-1170"
+        }
+      ],
+      "trainingHours12m": 70,
+      "restHoursSinceLastShift": 22,
+      "shiftsLast7Days": 6,
+      "availability": "Available",
+      "competencyScore": 72,
+      "photoInitials": "AP"
+    },
+    {
+      "id": "KM-6389",
+      "name": "Rahul Nair",
+      "nameMl": "രാഹുൽ നായർ",
+      "role": "Signalling & Telecom Engineer",
+      "department": "Signalling & Telecom",
+      "depot": "Muttom Depot",
+      "experienceYears": 10,
+      "languages": [
+        "English",
+        "Malayalam"
+      ],
+      "certifications": [
+        {
+          "code": "MSC",
+          "name": "Metro Safety Competency",
+          "nameMl": "മെട്രോ സേഫ്റ്റി കോംപിറ്റൻസി",
+          "issuedOn": "2026-08-09",
+          "expiresOn": "2027-08-09",
+          "docId": "DOC-1170"
+        },
+        {
+          "code": "ATP",
+          "name": "ATP / CBTC Maintenance Licence",
+          "nameMl": "ATP / CBTC മെയിന്റനൻസ് ലൈസൻസ്",
+          "issuedOn": "2025-09-01",
+          "expiresOn": "2026-09-01",
+          "docId": "DOC-1088"
+        }
+      ],
+      "trainingHours12m": 108,
+      "restHoursSinceLastShift": 20,
+      "shiftsLast7Days": 3,
+      "availability": "On Duty",
+      "competencyScore": 82,
+      "photoInitials": "RN"
+    }
+  ]
+}

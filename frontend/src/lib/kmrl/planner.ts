@@ -1,4 +1,4 @@
-import { daysUntil, staff as allStaff, type Staff } from "./data";
+import { daysUntil, type Staff } from "./data";
 
 export type ShiftId = "night-induction" | "early-service" | "ibl-maintenance";
 export type RequirementId =
@@ -92,7 +92,7 @@ export interface PlanResult {
   generatedAt: string;
 }
 
-export function buildPlan(shiftId: ShiftId, reqId: RequirementId, pool: Staff[] = allStaff): PlanResult {
+export function buildPlan(shiftId: ShiftId, reqId: RequirementId, pool: Staff[]): PlanResult {
   const shift = SHIFTS.find((s) => s.id === shiftId)!;
   const requirement = REQUIREMENTS.find((r) => r.id === reqId)!;
 

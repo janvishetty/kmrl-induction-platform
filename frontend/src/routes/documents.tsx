@@ -45,7 +45,7 @@ function DocumentsPage() {
   const list = docs.filter((d) => filter === "All" || d.type === filter);
   const open = docs.find((d) => d.id === openId) ?? list[0];
 
-  function handleFiles(files: FileList | null) {
+  async function handleFiles(files: FileList | null) {
     if (!files || files.length === 0) return;
     const file = files[0]!;
     setIngesting(file.name);
@@ -61,44 +61,54 @@ function DocumentsPage() {
               ? "EMAIL"
               : "PDF";
 
-    setTimeout(() => {
-      const id = `DOC-${1200 + Math.floor(Math.random() * 700)}`;
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("http://127.0.0.1:8000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const result = await response.json();
+
       const doc: KDocument = {
-        id,
+        id: result.doc_id,
         title: file.name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " "),
         titleMl: `അപ്‌ലോഡ് ചെയ്ത രേഖ — ${file.name}`,
-        fileName: file.name,
+        fileName: result.filename,
         format,
-        type: format === "XLSX" ? "Job Card" : format === "IMAGE" ? "Incident Report" : "Maintenance Log",
+        type: "Maintenance Log",
         department: "Operations",
         language: "en",
         uploadedBy: "Duty Controller (You)",
-        uploadedAt: new Date().toISOString(),
-        trainsets: ["TS-07"],
-        employeeIds: ["KM-2291"],
-        confidence: format === "IMAGE" ? 0.74 : 0.87,
-        status: format === "IMAGE" ? "Needs Review" : "Indexed",
-        tags: ["uploaded", "auto-classified"],
-        chunks: [
-          {
-            id: `${id}#p1s1`,
-            page: 1,
-            section: format === "IMAGE" ? "OCR — Page 1" : "Extracted content — Page 1",
-            text: `Auto-extracted content from ${file.name}. Classification pipeline identified an operations document referencing trainset TS-07 and employee KM-2291. Entities: 1 trainset, 1 employee ID, 1 date. Text is now searchable across the semantic index.`,
-            textMl: `${file.name} എന്ന ഫയലിൽ നിന്ന് സ്വയമേവ എടുത്ത ഉള്ളടക്കം. TS-07 ട്രെയിൻസെറ്റും KM-2291 ജീവനക്കാരനും തിരിച്ചറിഞ്ഞു.`,
-          },
-        ],
+        uploadedAt: result.upload_time,
+        trainsets: [],
+        employeeIds: [],
+        confidence: 0,
+        status: "Indexed",
+        tags: ["uploaded"],
+        chunks: [],
       };
+
       addDoc(doc);
-      setOpenId(id);
+      setOpenId(result.doc_id);
       setIngesting(null);
       log({
         actor: "Duty Controller (You)",
         action: "UPLOAD",
-        target: `${id} ${file.name}`,
-        detail: `Format ${format}; classified as ${doc.type} at ${(doc.confidence * 100).toFixed(0)}% confidence.`,
+        target: `${result.doc_id} ${file.name}`,
+        detail: `Uploaded and hashed: ${result.hash.slice(0, 12)}...`,
       });
-    }, 1200);
+    } catch (err) {
+      console.error("Upload error:", err);
+      setIngesting(null);
+      alert("Upload failed — check that the backend server is running.");
+    }
   }
 
   return (
