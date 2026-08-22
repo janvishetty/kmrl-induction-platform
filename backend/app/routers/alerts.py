@@ -11,6 +11,6 @@ def get_alerts():
     """Fetches all system alerts from Supabase for the frontend notification centre."""
     try:
         response = supabase.table("alerts").select("*").execute()
-        return {"status": "success", "data": response.data}
+        return response.data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
