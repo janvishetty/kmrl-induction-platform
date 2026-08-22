@@ -106,7 +106,7 @@ function PlannerPage() {
                 setBackendPlan(data);
                 setIsLive(true);
                 
-               alert(`Backend PuLP Optimization Success!\nBlockchain Audit Hash: ${data.audit_hash}`);
+              alert(`Backend PuLP Optimization Success!\nBlockchain Audit Hash: ${data.audit_hash}`);
                 
               } catch (error) {
                 console.error("API Error:", error);
@@ -121,90 +121,73 @@ function PlannerPage() {
       />
 
       {/* LIVE BACKEND RESULTS BANNER */}
-      {isLive && backendPlan && (
-        <section className="mb-6 rounded-lg border border-primary/50 bg-primary/10 p-5">
-          <div className="flex items-center justify-between border-b border-primary/20 pb-3">
-            <p className="flex items-center gap-2 font-semibold text-primary">
-              <Terminal className="size-4" /> Live PuLP Optimization Engine Results
-            </p>
-            <span className="font-mono text-xs text-muted-foreground">
-              Audit Hash: {backendPlan.audit_hash?.substring(0, 16)}...
-            </span>
-          </div>
-          <div className="mt-4 grid gap-4 md:grid-cols-3">
-            <div className="rounded bg-background/80 p-3 border border-border">
-              <p className="mono-label text-success">Service Trains ({backendPlan.service_list?.length || 0})</p>
-              <p className="mt-1 font-mono text-sm">{backendPlan.service_list?.join(", ") || "None"}</p>
-            </div>
-            <div className="rounded bg-background/80 p-3 border border-border">
-              <p className="mono-label text-accent">Standby Trains ({backendPlan.standby_list?.length || 0})</p>
-              <p className="mt-1 font-mono text-sm">{backendPlan.standby_list?.join(", ") || "None"}</p>
-            </div>
-            <div className="rounded bg-background/80 p-3 border border-border">
-              <p className="mono-label text-destructive">IBL Maintenance ({backendPlan.ibl_list?.length || 0})</p>
-              <p className="mt-1 font-mono text-sm">{backendPlan.ibl_list?.join(", ") || "None"}</p>
-            </div>
-          </div>
-          {backendPlan.system_alerts?.length > 0 && (
-            <div className="mt-4 rounded bg-destructive/10 p-3 border border-destructive/30">
-              <p className="mono-label text-destructive">Safety Violations Triggered by Math Engine:</p>
-              <ul className="mt-1 space-y-1 text-xs">
-                {backendPlan.system_alerts.map((alert: any, idx: number) => (
-                  <li key={idx} className="font-medium text-foreground">
-                    <span className="font-mono font-bold text-destructive">[{alert.train_id}]</span> {alert.message}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </section>
-      )}
+{isLive && backendPlan && (
+  <section className="mb-6 rounded-lg border border-primary/50 bg-primary/10 p-5">
+    <div className="flex items-center justify-between border-b border-primary/20 pb-3">
+      <p className="flex items-center gap-2 font-semibold text-primary">
+        <Terminal className="size-4" /> Live PuLP Optimization Engine Results
+      </p>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="panel p-4">
-          <p className="mono-label mb-2">{t("shift")}</p>
-          <div className="space-y-2">
-            {SHIFTS.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setShift(s.id)}
-                className={cn(
-                  "w-full rounded-md border px-3 py-2 text-left text-sm transition-colors",
-                  shift === s.id
-                    ? "border-primary bg-primary/10 text-foreground"
-                    : "border-border text-muted-foreground hover:border-primary/40",
-                )}
-              >
-                <span className="block font-medium">{lang === "ml" ? s.labelMl : s.label}</span>
-                <span className="mono-label">min rest {s.minRestHours}h</span>
-              </button>
-            ))}
-          </div>
-        </div>
+      <div className="flex items-center gap-4 text-right">
+        <span className="font-mono text-xs font-bold text-success">
+          Optimized in {backendPlan.execution_time_ms}ms
+        </span>
 
-        <div className="panel p-4">
-          <p className="mono-label mb-2">{t("requirement")}</p>
-          <div className="space-y-2">
-            {REQUIREMENTS.map((r) => (
-              <button
-                key={r.id}
-                onClick={() => setReq(r.id)}
-                className={cn(
-                  "w-full rounded-md border px-3 py-2 text-left text-sm transition-colors",
-                  req === r.id
-                    ? "border-accent bg-accent/10 text-foreground"
-                    : "border-border text-muted-foreground hover:border-accent/40",
-                )}
-              >
-                <span className="block font-medium">{lang === "ml" ? r.labelMl : r.label}</span>
-                <span className="mono-label">
-                  requires {r.requiredCerts.join(" + ")} · {r.minExperience}+ yrs
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+        <span className="font-mono text-xs text-muted-foreground">
+          Audit Hash: {backendPlan.audit_hash?.substring(0, 16)}...
+        </span>
       </div>
+    </div>
+
+    <div className="mt-4 grid gap-4 md:grid-cols-3">
+      <div className="rounded bg-background/80 p-3 border border-border">
+        <p className="mono-label text-success">
+          Service Trains ({backendPlan.service_list?.length || 0})
+        </p>
+        <p className="mt-1 font-mono text-sm">
+          {backendPlan.service_list?.join(", ") || "None"}
+        </p>
+      </div>
+
+      <div className="rounded bg-background/80 p-3 border border-border">
+        <p className="mono-label text-accent">
+          Standby Trains ({backendPlan.standby_list?.length || 0})
+        </p>
+        <p className="mt-1 font-mono text-sm">
+          {backendPlan.standby_list?.join(", ") || "None"}
+        </p>
+      </div>
+
+      <div className="rounded bg-background/80 p-3 border border-border">
+        <p className="mono-label text-destructive">
+          IBL Maintenance ({backendPlan.ibl_list?.length || 0})
+        </p>
+        <p className="mt-1 font-mono text-sm">
+          {backendPlan.ibl_list?.join(", ") || "None"}
+        </p>
+      </div>
+    </div>
+
+    {backendPlan.system_alerts?.length > 0 && (
+      <div className="mt-4 rounded bg-destructive/10 p-3 border border-destructive/30">
+        <p className="mono-label text-destructive">
+          Safety Violations Triggered by Math Engine:
+        </p>
+
+        <ul className="mt-1 space-y-1 text-xs">
+          {backendPlan.system_alerts.map((alert: any, idx: number) => (
+            <li key={idx} className="font-medium text-foreground">
+              <span className="font-mono font-bold text-destructive">
+                [{alert.train_id}]
+              </span>{" "}
+              {alert.message}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </section>
+)}
 
       {/* Recommendation */}
       <section className="mt-6 grid gap-4 xl:grid-cols-3">
