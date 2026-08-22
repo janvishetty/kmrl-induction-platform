@@ -760,3 +760,9 @@ export const seedAudit: AuditEntry[] = [
 
 export const findDoc = (id: string) => documents.find((d) => d.id === id);
 export const findStaff = (id: string) => staff.find((s) => s.id === id);
+
+export const STATION_TRANSLATIONS = {
+  ALVA: { ml: "ആലുവ", hi: "आलुवा" },
+  PNCU: { ml: "പുളിഞ്ചോട്", hi: "पुलिनचोडु" },
+  // ... etc
+};

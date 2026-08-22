@@ -13,6 +13,9 @@ import {
 } from "@/lib/kmrl/planner";
 import { cn } from "@/lib/utils";
 
+
+import { staff } from "@/lib/kmrl/data";
+
 export const Route = createFileRoute("/planner")({
   head: () => ({
     meta: [
@@ -43,7 +46,9 @@ function PlannerPage() {
   const [backendPlan, setBackendPlan] = useState<any | null>(null);
   const [isLive, setIsLive] = useState(false);
 
-  const plan = useMemo(() => buildPlan(shift, req), [shift, req, runId]);
+  // 👇 FIX: Added STAFF as the 3rd argument to buildPlan
+  const plan = useMemo(() => buildPlan(shift, req, staff), [shift, req, runId]);
+  
   const focus: Candidate | undefined =
     plan.candidates.find((c) => c.staff.id === selected) ?? plan.recommended;
 
@@ -95,7 +100,7 @@ function PlannerPage() {
                 });
                 
                 const data = await response.json();
-                console.log("🔥 LIVE PuLP BACKEND OUTPUT:", data);
+                console.log(" LIVE PuLP BACKEND OUTPUT:", data);
                 
                 // Save to live state so the UI instantly swaps to real backend data!
                 setBackendPlan(data);

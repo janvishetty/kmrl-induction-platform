@@ -18,6 +18,7 @@ import { useApp } from "@/lib/kmrl/store";
 import { useApiData } from "@/lib/kmrl/hooks";
 import { fetchAlerts } from "@/lib/kmrl/api";
 import { cn } from "@/lib/utils";
+import { IndianRupee } from "lucide-react"; // Add this import at the top if not already there
 
 const NAV = [
   { to: "/", key: "nav_dashboard", icon: LayoutDashboard },
@@ -29,6 +30,7 @@ const NAV = [
   { to: "/staff", key: "nav_staff", icon: Users },
   { to: "/alerts", key: "nav_alerts", icon: Bell },
   { to: "/audit", key: "nav_audit", icon: ScrollText },
+  { to: "/fares", key: "nav_fares", icon: IndianRupee }, 
 ] as const;
 
 function ThemeToggle({ compact = false }: { compact?: boolean }) {
@@ -63,8 +65,15 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { t, lang, setLang } = useApp();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { data: alerts } = useApiData(fetchAlerts);
-  const criticals = (alerts ?? []).filter((alertItem) => alertItem.severity === "critical").length;
-
+  
+  // 👇 SAFELY extract the array, whether it's a direct array or wrapped in { data: [...] }
+  const alertsArray = Array.isArray(alerts) 
+    ? alerts 
+    : (alerts && typeof alerts === 'object' && 'data' in alerts ? (alerts as any).data : []);
+  
+  const criticals = Array.isArray(alertsArray) 
+    ? alertsArray.filter((alertItem: any) => alertItem.severity === "critical").length 
+    : 0;
 
   return (
     <div className="flex min-h-screen">
@@ -132,7 +141,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           <p className="mono-label mt-4 mb-2">Appearance</p>
           <ThemeToggle />
         </div>
-
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">

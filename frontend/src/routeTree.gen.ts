@@ -14,6 +14,7 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuditRouteImport } from './routes/audit'
 import { Route as ComplianceRouteImport } from './routes/compliance'
 import { Route as DocumentsRouteImport } from './routes/documents'
+import { Route as FaresRouteImport } from './routes/fares'
 import { Route as PlannerRouteImport } from './routes/planner'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SmartmapRouteImport } from './routes/smartmap'
@@ -44,6 +45,11 @@ const DocumentsRoute = DocumentsRouteImport.update({
   path: '/documents',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaresRoute = FaresRouteImport.update({
+  id: '/fares',
+  path: '/fares',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlannerRoute = PlannerRouteImport.update({
   id: '/planner',
   path: '/planner',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/audit': typeof AuditRoute
   '/compliance': typeof ComplianceRoute
   '/documents': typeof DocumentsRoute
+  '/fares': typeof FaresRoute
   '/planner': typeof PlannerRoute
   '/search': typeof SearchRoute
   '/smartmap': typeof SmartmapRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/audit': typeof AuditRoute
   '/compliance': typeof ComplianceRoute
   '/documents': typeof DocumentsRoute
+  '/fares': typeof FaresRoute
   '/planner': typeof PlannerRoute
   '/search': typeof SearchRoute
   '/smartmap': typeof SmartmapRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/audit': typeof AuditRoute
   '/compliance': typeof ComplianceRoute
   '/documents': typeof DocumentsRoute
+  '/fares': typeof FaresRoute
   '/planner': typeof PlannerRoute
   '/search': typeof SearchRoute
   '/smartmap': typeof SmartmapRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/audit'
     | '/compliance'
     | '/documents'
+    | '/fares'
     | '/planner'
     | '/search'
     | '/smartmap'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/audit'
     | '/compliance'
     | '/documents'
+    | '/fares'
     | '/planner'
     | '/search'
     | '/smartmap'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/audit'
     | '/compliance'
     | '/documents'
+    | '/fares'
     | '/planner'
     | '/search'
     | '/smartmap'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   AuditRoute: typeof AuditRoute
   ComplianceRoute: typeof ComplianceRoute
   DocumentsRoute: typeof DocumentsRoute
+  FaresRoute: typeof FaresRoute
   PlannerRoute: typeof PlannerRoute
   SearchRoute: typeof SearchRoute
   SmartmapRoute: typeof SmartmapRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fares': {
+      id: '/fares'
+      path: '/fares'
+      fullPath: '/fares'
+      preLoaderRoute: typeof FaresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/planner': {
       id: '/planner'
       path: '/planner'
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuditRoute: AuditRoute,
   ComplianceRoute: ComplianceRoute,
   DocumentsRoute: DocumentsRoute,
+  FaresRoute: FaresRoute,
   PlannerRoute: PlannerRoute,
   SearchRoute: SearchRoute,
   SmartmapRoute: SmartmapRoute,

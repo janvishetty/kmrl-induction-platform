@@ -14,6 +14,7 @@ export const dict: Dict = {
   nav_staff: { en: "Staff Competency", ml: "ജീവനക്കാരുടെ കഴിവ്" },
   nav_alerts: { en: "Alerts", ml: "അലേർട്ടുകൾ" },
   nav_audit: { en: "Audit Trail", ml: "ഓഡിറ്റ് ട്രെയിൽ" },
+  nav_fares: { en: "Fare Calculator", ml: "ഫെയർ കാൽക്കുലേറ്റർ" },
   hero: { en: "Hero feature", ml: "പ്രധാന സവിശേഷത" },
   shift: { en: "Shift", ml: "ഷിഫ്റ്റ്" },
   requirement: { en: "Operational requirement", ml: "പ്രവർത്തന ആവശ്യകത" },
