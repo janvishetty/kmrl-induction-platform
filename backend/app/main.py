@@ -1,21 +1,23 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import induction
+from app.routers import induction, audit, alerts  # <-- Imported alerts router here!
 
 app = FastAPI(title="RAIL DHARA API")
 
-# --- NEW: CORS FIX FOR FRONTEND ---
+# --- CORS FIX FOR FRONTEND ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Allows all local ports (Anushka's frontend) to talk to your API
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 # ----------------------------------
 
-# Register your induction endpoint
+# Register your endpoints
 app.include_router(induction.router)
+app.include_router(audit.router)
+app.include_router(alerts.router)  # <-- Registered alerts router here!
 
 @app.get("/")
 def read_root():

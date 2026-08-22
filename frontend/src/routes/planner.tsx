@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { AlertTriangle, CheckCircle2, GitBranch, ShieldAlert, XCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, GitBranch, ShieldAlert, XCircle, Terminal } from "lucide-react";
 import { AppShell, Citation, PageHeader } from "@/components/kmrl/AppShell";
 import { useApp } from "@/lib/kmrl/store";
 import {
@@ -39,6 +39,10 @@ function PlannerPage() {
   const [runId, setRunId] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
 
+  // NEW: State to hold your live PuLP backend response!
+  const [backendPlan, setBackendPlan] = useState<any | null>(null);
+  const [isLive, setIsLive] = useState(false);
+
   const plan = useMemo(() => buildPlan(shift, req), [shift, req, runId]);
   const focus: Candidate | undefined =
     plan.candidates.find((c) => c.staff.id === selected) ?? plan.recommended;
@@ -52,22 +56,36 @@ function PlannerPage() {
         action={
           <button
             onClick={async () => {
-              // 1. Keep Anushka's original UI updates so the page still looks right
               setRunId((n) => n + 1);
               setSelected(null);
               log({
                 actor: "Duty Controller (You)",
                 action: "PLAN_GENERATED",
                 target: `${plan.shift.label} — ${plan.requirement.label}`,
-                detail: "Sent request to FastAPI backend.",
+                detail: "Sent request to FastAPI backend solver.",
               });
 
-              // 2. NEW: Call your FastAPI backend!
               try {
-                // The exact data structure your PuLP optimizer expects
+                // The exact 6 inter-dependent variables required by your Pydantic schema and PuLP solver
                 const dummyData = [
-                  { train_id: "T01", certificate_valid: true, mileage: 15000 },
-                  { train_id: "T02", certificate_valid: false, mileage: 12000 }
+                  {
+                    train_id: "T01",
+                    fitness_certificate: true,
+                    job_card_cleared: true,
+                    branding_active: true,
+                    mileage: 15000,
+                    cleaning_completed: true,
+                    stabling_location: "Muttom"
+                  },
+                  {
+                    train_id: "T02",
+                    fitness_certificate: false,
+                    job_card_cleared: true,
+                    branding_active: false,
+                    mileage: 12000,
+                    cleaning_completed: false,
+                    stabling_location: "Muttom"
+                  }
                 ];
                 
                 const response = await fetch("http://127.0.0.1:8000/induction/generate-plan", {
@@ -77,10 +95,13 @@ function PlannerPage() {
                 });
                 
                 const data = await response.json();
-                console.log("🔥 BACKEND PuLP OUTPUT:", data);
+                console.log("🔥 LIVE PuLP BACKEND OUTPUT:", data);
                 
-                // Show a browser popup with Aarushi's blockchain hash!
-               alert(`Backend Optimization Success!\nBlockchain Audit Hash: ${data.data.audit_hash}`);
+                // Save to live state so the UI instantly swaps to real backend data!
+                setBackendPlan(data);
+                setIsLive(true);
+                
+               alert(`Backend PuLP Optimization Success!\nBlockchain Audit Hash: ${data.audit_hash}`);
                 
               } catch (error) {
                 console.error("API Error:", error);
@@ -93,6 +114,46 @@ function PlannerPage() {
           </button>
         }
       />
+
+      {/* LIVE BACKEND RESULTS BANNER */}
+      {isLive && backendPlan && (
+        <section className="mb-6 rounded-lg border border-primary/50 bg-primary/10 p-5">
+          <div className="flex items-center justify-between border-b border-primary/20 pb-3">
+            <p className="flex items-center gap-2 font-semibold text-primary">
+              <Terminal className="size-4" /> Live PuLP Optimization Engine Results
+            </p>
+            <span className="font-mono text-xs text-muted-foreground">
+              Audit Hash: {backendPlan.audit_hash?.substring(0, 16)}...
+            </span>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="rounded bg-background/80 p-3 border border-border">
+              <p className="mono-label text-success">Service Trains ({backendPlan.service_list?.length || 0})</p>
+              <p className="mt-1 font-mono text-sm">{backendPlan.service_list?.join(", ") || "None"}</p>
+            </div>
+            <div className="rounded bg-background/80 p-3 border border-border">
+              <p className="mono-label text-accent">Standby Trains ({backendPlan.standby_list?.length || 0})</p>
+              <p className="mt-1 font-mono text-sm">{backendPlan.standby_list?.join(", ") || "None"}</p>
+            </div>
+            <div className="rounded bg-background/80 p-3 border border-border">
+              <p className="mono-label text-destructive">IBL Maintenance ({backendPlan.ibl_list?.length || 0})</p>
+              <p className="mt-1 font-mono text-sm">{backendPlan.ibl_list?.join(", ") || "None"}</p>
+            </div>
+          </div>
+          {backendPlan.system_alerts?.length > 0 && (
+            <div className="mt-4 rounded bg-destructive/10 p-3 border border-destructive/30">
+              <p className="mono-label text-destructive">Safety Violations Triggered by Math Engine:</p>
+              <ul className="mt-1 space-y-1 text-xs">
+                {backendPlan.system_alerts.map((alert: any, idx: number) => (
+                  <li key={idx} className="font-medium text-foreground">
+                    <span className="font-mono font-bold text-destructive">[{alert.train_id}]</span> {alert.message}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="panel p-4">
