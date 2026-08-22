@@ -15,7 +15,8 @@ import {
   Moon,
 } from "lucide-react";
 import { useApp } from "@/lib/kmrl/store";
-import { alerts } from "@/lib/kmrl/data";
+import { useApiData } from "@/lib/kmrl/hooks";
+import { fetchAlerts } from "@/lib/kmrl/api";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -61,7 +62,8 @@ function ThemeToggle({ compact = false }: { compact?: boolean }) {
 export function AppShell({ children }: { children: ReactNode }) {
   const { t, lang, setLang } = useApp();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const criticals = alerts.filter((a) => a.severity === "critical").length;
+  const { data: alerts } = useApiData(fetchAlerts);
+  const criticals = (alerts ?? []).filter((alertItem) => alertItem.severity === "critical").length;
 
 
   return (

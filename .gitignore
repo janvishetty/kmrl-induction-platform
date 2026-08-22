@@ -25,3 +25,7 @@ build/
 artifacts/
 cache/
 typechain-types/
+
+#backend
+.env
+backend/.env

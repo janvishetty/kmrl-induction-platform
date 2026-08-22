@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle2, GitBranch, ShieldAlert, XCircle } from "lucide-react";
 import { AppShell, Citation, PageHeader } from "@/components/kmrl/AppShell";
 import { useApp } from "@/lib/kmrl/store";
+import { staff } from "@/lib/kmrl/data";
 import {
   REQUIREMENTS,
   SHIFTS,
@@ -39,7 +40,7 @@ function PlannerPage() {
   const [runId, setRunId] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
 
-  const plan = useMemo(() => buildPlan(shift, req), [shift, req, runId]);
+  const plan = useMemo(() => buildPlan(shift, req, staff), [shift, req, runId]);
   const focus: Candidate | undefined =
     plan.candidates.find((c) => c.staff.id === selected) ?? plan.recommended;
 
