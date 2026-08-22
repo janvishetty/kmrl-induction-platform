@@ -51,15 +51,41 @@ function PlannerPage() {
         subtitle="Pick a shift and an operational requirement. The planner evaluates every staff member against certification, fatigue, roster-cap, availability, department and experience rules — and shows the reasoning behind every accept and reject."
         action={
           <button
-            onClick={() => {
+            onClick={async () => {
+              // 1. Keep Anushka's original UI updates so the page still looks right
               setRunId((n) => n + 1);
               setSelected(null);
               log({
                 actor: "Duty Controller (You)",
                 action: "PLAN_GENERATED",
                 target: `${plan.shift.label} — ${plan.requirement.label}`,
-                detail: `${plan.eligible.length} eligible, ${plan.rejected.length} rejected, ${plan.conflicts.length} conflicts.`,
+                detail: "Sent request to FastAPI backend.",
               });
+
+              // 2. NEW: Call your FastAPI backend!
+              try {
+                // The exact data structure your PuLP optimizer expects
+                const dummyData = [
+                  { train_id: "T01", certificate_valid: true, mileage: 15000 },
+                  { train_id: "T02", certificate_valid: false, mileage: 12000 }
+                ];
+                
+                const response = await fetch("http://127.0.0.1:8000/induction/generate-plan", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(dummyData)
+                });
+                
+                const data = await response.json();
+                console.log("🔥 BACKEND PuLP OUTPUT:", data);
+                
+                // Show a browser popup with Aarushi's blockchain hash!
+               alert(`Backend Optimization Success!\nBlockchain Audit Hash: ${data.data.audit_hash}`);
+                
+              } catch (error) {
+                console.error("API Error:", error);
+                alert("Backend connection failed! Is your Uvicorn server running?");
+              }
             }}
             className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
           >

@@ -1,9 +1,11 @@
 import pulp
 import json
+import hashlib
 
 def generate_induction_plan(trainsets: list):
     """
     Evaluates trainsets and categorizes them into SERVICE, STANDBY, or IBL.
+    Generates a SHA-256 hash of the final plan for blockchain audit trailing.
     """
     prob = pulp.LpProblem("KMRL_Induction_Optimization", pulp.LpMaximize)
     categories = ["SERVICE", "STANDBY", "IBL"]
@@ -36,6 +38,14 @@ def generate_induction_plan(trainsets: list):
             if pulp.value(train_vars[(train_id, cat)]) == 1.0:
                 results[cat].append({"train_id": train_id, "reason": f"Met constraints for {cat}"})
                 
+    # --- NEW: Blockchain Audit Trail Hashing ---
+    # Convert the results to a string (sorting keys ensures the hash is always identical for identical data)
+    results_string = json.dumps(results, sort_keys=True)
+    # Generate the SHA-256 fingerprint
+    audit_hash = hashlib.sha256(results_string.encode('utf-8')).hexdigest()
+    # Attach it to the final output for the API
+    results["audit_hash"] = audit_hash
+            
     return results
 
 # Dummy data to test the function locally
