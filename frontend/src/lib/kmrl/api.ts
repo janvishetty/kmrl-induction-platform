@@ -28,3 +28,4 @@ export const fetchAudit = () => apiGet<any[]>("/audit");
 export const fetchCompliance = () => apiGet<any>("/compliance");
 export const fetchDocuments = () => apiGet<any[]>("/documents");
 export const fetchSmartMapFeed = () => apiGet<any>("/smartmap/feed");
+export const fetchInductionPlan = () => apiGet<any>("/ml/induction-plan");

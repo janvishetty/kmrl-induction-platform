@@ -1,6 +1,7 @@
+import sys
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from app.routers import (
     induction,
     audit,
@@ -13,6 +14,13 @@ from app.routers import (
     stations,
     trainsets,
 )
+
+# --- ai-ml integration ---
+AI_ML_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "ai-ml"))
+if AI_ML_PATH not in sys.path:
+    sys.path.insert(0, AI_ML_PATH)
+
+from src.ml_router import router as ml_router
 
 app = FastAPI(
     title="RAIL DHARA API",
@@ -42,7 +50,7 @@ app.include_router(operations.router)
 app.include_router(staff.router)
 app.include_router(stations.router)
 app.include_router(trainsets.router)
-
+app.include_router(ml_router, prefix="/ml", tags=["ML"])
 
 # -----------------------------
 # ROOT

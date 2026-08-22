@@ -61,58 +61,37 @@ function PlannerPage() {
         action={
           <button
             onClick={async () => {
-              setRunId((n) => n + 1);
-              setSelected(null);
-              log({
-                actor: "Duty Controller (You)",
-                action: "PLAN_GENERATED",
-                target: `${plan.shift.label} — ${plan.requirement.label}`,
-                detail: "Sent request to FastAPI backend solver.",
-              });
+  setRunId((n) => n + 1);
+  setSelected(null);
+  log({
+    actor: "Duty Controller (You)",
+    action: "PLAN_GENERATED",
+    target: `${plan.shift.label} — ${plan.requirement.label}`,
+    detail: "Sent request to FastAPI backend solver.",
+  });
 
-              try {
-                // The exact 6 inter-dependent variables required by your Pydantic schema and PuLP solver
-                const dummyData = [
-                  {
-                    train_id: "T01",
-                    fitness_certificate: true,
-                    job_card_cleared: true,
-                    branding_active: true,
-                    mileage: 15000,
-                    cleaning_completed: true,
-                    stabling_location: "Muttom"
-                  },
-                  {
-                    train_id: "T02",
-                    fitness_certificate: false,
-                    job_card_cleared: true,
-                    branding_active: false,
-                    mileage: 12000,
-                    cleaning_completed: false,
-                    stabling_location: "Muttom"
-                  }
-                ];
-                
-                const response = await fetch("http://127.0.0.1:8000/induction/generate-plan", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(dummyData)
-                });
-                
-                const data = await response.json();
-                console.log(" LIVE PuLP BACKEND OUTPUT:", data);
-                
-                // Save to live state so the UI instantly swaps to real backend data!
-                setBackendPlan(data);
-                setIsLive(true);
-                
-              alert(`Backend PuLP Optimization Success!\nBlockchain Audit Hash: ${data.audit_hash}`);
-                
-              } catch (error) {
-                console.error("API Error:", error);
-                alert("Backend connection failed! Is your Uvicorn server running?");
-              }
-            }}
+  try {
+    const startTime = performance.now();
+
+    const response = await fetch(
+      `${import.meta.env["VITE_API_URL"] || "http://localhost:8000"}/ml/induction-plan`
+    );
+
+    const data = await response.json();
+    const elapsedMs = Math.round(performance.now() - startTime);
+
+    console.log(" LIVE PuLP BACKEND OUTPUT:", data);
+
+    setBackendPlan({ ...data, execution_time_ms: elapsedMs });
+    setIsLive(true);
+
+    alert(`Backend PuLP Optimization Success!\nBlockchain Audit Hash: ${data.audit_hash}`);
+
+  } catch (error) {
+    console.error("API Error:", error);
+    alert("Backend connection failed! Is your Uvicorn server running?");
+  }
+}}
             className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
           >
             {t("generate")}
@@ -144,8 +123,8 @@ function PlannerPage() {
         <p className="mono-label text-success">
           Service Trains ({backendPlan.service_list?.length || 0})
         </p>
-        <p className="mt-1 font-mono text-sm">
-          {backendPlan.service_list?.join(", ") || "None"}
+                <p className="mt-1 font-mono text-sm">
+          {backendPlan.service_list?.map((s: any) => s.train_id).join(", ") || "None"}
         </p>
       </div>
 
