@@ -145,6 +145,7 @@ async def upload_document(file: UploadFile = File(...)):
     return {
         "doc_id": doc_id,
         "filename": file.filename,
+        "hash": file_hash, # <-- Added this line so the UI doesn't crash!
         "status": "Indexed",
         "chunks_extracted": len(chunks),
         "message": "Document successfully uploaded and indexed."
@@ -221,3 +222,26 @@ async def verify_document(doc_id: str):
         "hash_match": current_hash == doc_record["hash"],
         "status": "verified" if current_hash == doc_record["hash"] else "tampered",
     }
+@router.get("/search")
+async def search_documents(query: str):
+    """RAG Retrieval Endpoint with Safety-Critical Fallback."""
+    try:
+        # 1. Search the database for the policy (e.g., "DOC-1042")
+        result = supabase.table("documents").select("*").ilike("title", f"%{query}%").execute()
+        
+        # 2. THE SAFETY FALLBACK (Directly answers Round 1 Feedback)
+        if not result.data:
+            return {
+                "status": "warning",
+                "message": f"CRITICAL: Policy '{query}' not found in knowledge base. CSO manual override required.",
+                "data": []
+            }
+            
+        # 3. Policy found successfully
+        return {
+            "status": "success",
+            "message": "Policy retrieved successfully.",
+            "data": result.data
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

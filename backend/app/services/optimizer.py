@@ -1,12 +1,13 @@
 import pulp
 import json
 import hashlib
+import time
 from app.schemas import TrainFeatureData, AlertTrigger
 
 def generate_induction_plan(trainsets: list[TrainFeatureData]) -> dict:
     """
-    Evaluates trainsets using 6 inter-dependent factors to categorize them into SERVICE, STANDBY, or IBL[cite: 1].
-    Mechanically blocks unsafe trains, generates explainable alerts, and creates a SHA-256 blockchain hash[cite: 1].
+    Evaluates trainsets using 6 inter-dependent factors to categorize them into SERVICE, STANDBY, or IBL.
+    Mechanically blocks unsafe trains, generates explainable alerts, and creates a SHA-256 blockchain hash.
     """
     prob = pulp.LpProblem("KMRL_Induction_Optimization", pulp.LpMaximize)
     categories = ["SERVICE", "STANDBY", "IBL"]
@@ -46,15 +47,22 @@ def generate_induction_plan(trainsets: list[TrainFeatureData]) -> dict:
                 AlertTrigger(train_id=train_id, issue_type="OPERATIONAL_DELAY", message="Cleaning pending. Assigned to STANDBY.")
             )
 
-    prob.solve()
+    # 3. Start the Timer!
+    start_time = time.time()
     
-    # 3. Format the Explainable Output
-    # Convert alerts to dicts so they serialize to JSON properly for the hash
+    # Run solver silently so it doesn't flood your FastAPI logs
+    prob.solve(pulp.PULP_CBC_CMD(msg=0))
+    
+    # 4. Stop the Timer and calculate milliseconds
+    execution_time_ms = round((time.time() - start_time) * 1000)
+    
+    # 5. Format the Explainable Output
     results = {
         "service_list": [], 
         "standby_list": [], 
         "ibl_list": [], 
-        "system_alerts": [alert.model_dump() for alert in alerts]
+        "system_alerts": [alert.model_dump() for alert in alerts],
+        "execution_time_ms": execution_time_ms
     }
     
     for train in trainsets:
@@ -66,7 +74,7 @@ def generate_induction_plan(trainsets: list[TrainFeatureData]) -> dict:
         elif pulp.value(train_vars[(train_id, "IBL")]) == 1.0:
             results["ibl_list"].append(train_id)
                 
-    # 4. Blockchain Audit Trail Hashing
+    # 6. Blockchain Audit Trail Hashing
     results_string = json.dumps(results, sort_keys=True)
     audit_hash = hashlib.sha256(results_string.encode('utf-8')).hexdigest()
     
