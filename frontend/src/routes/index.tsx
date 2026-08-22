@@ -32,9 +32,23 @@ function Dashboard() {
   const { data: alertsData } = useApiData(fetchAlerts);
   const { data: staffData } = useApiData(fetchStaff);
   const { data: trainsetsData } = useApiData(fetchTrainsets);
-  const alerts = alertsData ?? [];
-  const staff = staffData ?? [];
-  const trainsets = trainsetsData ?? [];
+
+  // 👇 BULLETPROOF ARRAY EXTRACTION
+  // Handles both direct arrays [...] and wrapped responses { data: [...] }
+  const alerts = Array.isArray(alertsData) 
+    ? alertsData 
+    : (alertsData as any)?.data || [];
+    
+  const staff = Array.isArray(staffData) 
+    ? staffData 
+    : (staffData as any)?.data || [];
+    
+  const trainsets = Array.isArray(trainsetsData) 
+    ? trainsetsData 
+    : (trainsetsData as any)?.data || [];
+
+  const docsArray = Array.isArray(docs) ? docs : [];
+
   const plan = buildPlan("night-induction", "rolling-stock-fitness", staff);
   
   const criticals = alerts.filter((a: any) => a.severity === "critical");
