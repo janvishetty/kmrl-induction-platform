@@ -8,7 +8,6 @@ import { fetchAlerts, fetchStaff, fetchTrainsets } from "@/lib/kmrl/api";
 import { buildPlan } from "@/lib/kmrl/planner";
 import { cn } from "@/lib/utils";
 
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -37,9 +36,10 @@ function Dashboard() {
   const staff = staffData ?? [];
   const trainsets = trainsetsData ?? [];
   const plan = buildPlan("night-induction", "rolling-stock-fitness", staff);
-  const criticals = alerts.filter((a) => a.severity === "critical");
-  const available = staff.filter((s) => s.availability === "Available").length;
-  const expiringCerts = staff.flatMap((s) =>
+  
+  const criticals = alerts.filter((a: any) => a.severity === "critical");
+  const available = staff.filter((s: any) => s.availability === "Available").length;
+  const expiringCerts = staff.flatMap((s: any) =>
     (s.certifications ?? []).filter((c: any) => daysUntil(c.expiresOn) <= 14),
   ).length;
 
@@ -59,10 +59,10 @@ function Dashboard() {
         }
       />
       <div className="grid gap-4 md:grid-cols-4">
-        <Kpi label="Documents indexed" value={String(docs.length)} sub={`${docs.filter((d) => d.status !== "Indexed").length} pending review`} />
+        <Kpi label="Documents indexed" value={String(docsArray.length)} sub={`${docsArray.filter((d: any) => d.status !== "Indexed").length} pending review`} />
         <Kpi label="Critical alerts" value={String(criticals.length)} sub={`${alerts.length} total open`} tone="bad" />
         <Kpi label="Staff available" value={`${available}/${staff.length}`} sub={`${expiringCerts} certs expiring ≤14d`} tone="warn" />
-        <Kpi label="Induction ready" value={`${trainsets.filter((x) => x.jobCards === 0).length}/${trainsets.length}`} sub="trainsets clear of blockers" tone="ok" />
+        <Kpi label="Induction ready" value={`${trainsets.filter((x: any) => x.jobCards === 0).length}/${trainsets.length}`} sub="trainsets clear of blockers" tone="ok" />
       </div>
       <section className="mt-6 grid gap-4 xl:grid-cols-3">
         <div className="panel p-5 xl:col-span-2">
@@ -70,7 +70,7 @@ function Dashboard() {
             <TrainFront className="size-3.5 text-primary" /> Trainset induction board
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
-            {trainsets.map((ts) => (
+            {trainsets.map((ts: any) => (
               <div key={ts.id} className="flex items-center gap-3 rounded-md border border-border p-3">
                 <span className="font-mono text-sm font-bold">{ts.id}</span>
                 <span
@@ -120,7 +120,7 @@ function Dashboard() {
           <AlertTriangle className="size-3.5" /> Critical queue
         </p>
         <ul className="space-y-2">
-          {criticals.map((a) => (
+          {criticals.map((a: any) => (
             <li key={a.id} className="rounded-md border border-destructive/40 bg-destructive/10 p-3">
               <div className="flex flex-wrap items-center gap-2 text-sm">
                 <span className="font-medium">{lang === "ml" ? a.titleMl : a.title}</span>
