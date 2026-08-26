@@ -1,4 +1,3 @@
-# src/sync_dossier_to_supabase.py
 # Upload trainset_dossier.csv to Supabase.
 import os
 import pandas as pd
