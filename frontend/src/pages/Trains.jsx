@@ -6,6 +6,40 @@ import { Button } from "@/components/ui/button";
 import { Train, Calendar as CalendarIcon, X, ShieldCheck, Wrench, Megaphone, Gauge, Sparkles, Box, FileText, AlertTriangle } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
+function RunNightlyButton() {
+  const [running, setRunning] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const run = async () => {
+    setRunning(true);
+    setMsg("");
+    try {
+      const res = await fetch("http://127.0.0.1:8000/admin/run-nightly", {
+        method: "POST",
+      });
+      if (!res.ok) throw new Error();
+      setMsg("Recomputing plan… refresh in a few seconds.");
+    } catch {
+      setMsg("Couldn't reach the backend.");
+    } finally {
+      setRunning(false);
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2 ml-4">
+      <button
+        onClick={run}
+        disabled={running}
+        className="rounded-md border border-primary/50 bg-primary/10 px-3 py-2 text-sm font-medium text-primary hover:bg-primary/20 disabled:opacity-40 transition-colors"
+      >
+        {running ? "Starting…" : "Recompute Plan"}
+      </button>
+      {msg && <span className="text-xs text-muted-foreground">{msg}</span>}
+    </div>
+  );
+}
+
 const translations = {
   en: {
     title: "Train Induction Plan",
@@ -38,7 +72,7 @@ const translations = {
     loading: "ലോഡ് ചെയ്യുന്നു...",
     error: "പിശക് സംഭവിച്ചു",
     empty: "സർവീസ് യൂണിറ്റുകൾ ലഭ്യമല്ല.",
-    subModel: "ആൽസ്റ്റോം മെട്രോപോലിസ്",
+    subModel: "ആൽസ്റ്റോം മെട്രോപോളിസ്",
     whyDecision: "ഈ തീരുമാനത്തിന്റെ കാരണം",
     opVariables: "ഓപ്പറേഷണൽ വേരിയബിളുകൾ",
     sourceDocs: "സോഴ്സ് ഡോക്യുമെന്റുകൾ",
@@ -117,43 +151,46 @@ export default function Trains() {
       <PageHeader
         title={t.title}
         action={
-          <div className="flex items-center rounded-xl border border-border bg-card p-1 shadow-sm">
-            <Button
-              variant={selectedDate === "2026-08-26" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setSelectedDate("2026-08-26")}
-              className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === "2026-08-26" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-            >
-              {t.today}
-            </Button>
-            <Button
-              variant={selectedDate === "2026-08-27" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setSelectedDate("2026-08-27")}
-              className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === "2026-08-27" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-            >
-              {t.tomorrow}
-            </Button>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center rounded-xl border border-border bg-card p-1 shadow-sm">
+              <Button
+                variant={selectedDate === "2026-08-26" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setSelectedDate("2026-08-26")}
+                className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === "2026-08-26" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                {t.today}
+              </Button>
+              <Button
+                variant={selectedDate === "2026-08-27" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setSelectedDate("2026-08-27")}
+                className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === "2026-08-27" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                {t.tomorrow}
+              </Button>
 
-            <input
-              ref={dateInputRef}
-              type="date"
-              className="sr-only"
-              value={selectedDate}
-              onChange={(e) => e.target.value && setSelectedDate(e.target.value)}
-            />
-            <Button
-              variant={selectedDate !== "2026-08-26" && selectedDate !== "2026-08-27" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => dateInputRef.current?.showPicker?.()}
-              className={`rounded-lg text-xs font-medium px-4 h-8 flex items-center gap-2 ${
-                selectedDate !== "2026-08-26" && selectedDate !== "2026-08-27" 
-                  ? "bg-primary text-primary-foreground shadow-sm" 
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {formattedDate} <CalendarIcon className="h-3.5 w-3.5" />
-            </Button>
+              <input
+                ref={dateInputRef}
+                type="date"
+                className="sr-only"
+                value={selectedDate}
+                onChange={(e) => e.target.value && setSelectedDate(e.target.value)}
+              />
+              <Button
+                variant={selectedDate !== "2026-08-26" && selectedDate !== "2026-08-27" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => dateInputRef.current?.showPicker?.()}
+                className={`rounded-lg text-xs font-medium px-4 h-8 flex items-center gap-2 ${
+                  selectedDate !== "2026-08-26" && selectedDate !== "2026-08-27" 
+                    ? "bg-primary text-primary-foreground shadow-sm" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {formattedDate} <CalendarIcon className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+            <RunNightlyButton />
           </div>
         }
       />
