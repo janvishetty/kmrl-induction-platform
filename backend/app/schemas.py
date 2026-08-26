@@ -22,5 +22,6 @@ class InductionPlanResult(BaseModel):
     service_list: List[str]
     standby_list: List[str]
     ibl_list: List[str]
-    system_alerts: List[AlertTrigger]
+    system_alerts: List[AlertTrigger] = []
+    execution_time_ms: int = 0  # <-- Added this so FastAPI lets the timer pass through!
     audit_hash: str

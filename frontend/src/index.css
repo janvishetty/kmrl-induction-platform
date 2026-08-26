@@ -1,0 +1,214 @@
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Rail Dhara / KMRL Operations control theme.
+ * Deep slate console · KMRL metro teal · signal amber · service green · IBL red.
+ * All tokens HSL space-separated so Tailwind's hsl(var(--token)) works.
+ * Type: Manrope (display) + Inter (body) + IBM Plex Mono (identifiers).
+ */
+
+:root {
+  --radius: 0.75rem;
+
+  --background: 210 25% 98%;
+  --foreground: 215 30% 17%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 215 30% 17%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 30% 17%;
+
+  --primary: 187 62% 34%;            /* KMRL metro teal */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 210 20% 94%;
+  --secondary-foreground: 215 25% 25%;
+
+  --muted: 210 20% 95%;
+  --muted-foreground: 215 12% 45%;
+
+  --accent: 38 68% 46%;              /* signal amber */
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 6 66% 51%;          /* IBL / critical red */
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 152 46% 36%;            /* SERVICE green */
+  --success-foreground: 0 0% 100%;
+
+  --warning: 38 70% 44%;             /* STANDBY / warning amber */
+  --warning-foreground: 0 0% 100%;
+
+  --border: 214 22% 89%;
+  --input: 214 22% 88%;
+  --ring: 187 62% 34%;
+
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 215 25% 27%;
+  --sidebar-primary: 187 62% 34%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 187 45% 94%;
+  --sidebar-accent-foreground: 187 62% 26%;
+  --sidebar-border: 214 22% 90%;
+  --sidebar-ring: 187 62% 34%;
+
+  --map-surface: 210 18% 92%;
+  --shadow-card: 0 1px 2px hsl(215 30% 20% / 0.04), 0 6px 20px -8px hsl(215 30% 20% / 0.10);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: 213 33% 9%;          /* very dark navy */
+  --foreground: 210 24% 93%;
+
+  --card: 214 28% 13%;
+  --card-foreground: 210 24% 93%;
+  --popover: 214 28% 13%;
+  --popover-foreground: 210 24% 93%;
+
+  --primary: 184 58% 52%;            /* brighter teal on dark */
+  --primary-foreground: 213 40% 10%;
+
+  --secondary: 214 20% 20%;
+  --secondary-foreground: 210 22% 90%;
+
+  --muted: 214 20% 18%;
+  --muted-foreground: 212 16% 68%;
+
+  --accent: 40 70% 60%;
+  --accent-foreground: 213 40% 10%;
+
+  --destructive: 6 68% 60%;
+  --destructive-foreground: 210 30% 97%;
+
+  --success: 154 48% 54%;
+  --success-foreground: 213 40% 10%;
+
+  --warning: 40 70% 58%;
+  --warning-foreground: 213 40% 10%;
+
+  --border: 214 18% 24%;
+  --input: 214 18% 24%;
+  --ring: 184 58% 52%;
+
+  --sidebar: 214 32% 11%;
+  --sidebar-foreground: 210 22% 88%;
+  --sidebar-primary: 184 58% 52%;
+  --sidebar-primary-foreground: 213 40% 10%;
+  --sidebar-accent: 214 24% 18%;
+  --sidebar-accent-foreground: 210 24% 93%;
+  --sidebar-border: 214 18% 20%;
+  --sidebar-ring: 184 58% 52%;
+
+  --map-surface: 213 30% 11%;
+  --shadow-card: 0 1px 2px hsl(213 40% 3% / 0.4), 0 8px 24px -10px hsl(213 40% 3% / 0.55);
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Inter", "Noto Sans Malayalam", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: "Manrope", "Noto Sans Malayalam", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .mono-label {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+  .card-elevated {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Leaflet theming (loaded before overrides via @import at top).      */
+/* Keeps the map + popups inside the Rail Dhara theme in light & dark. */
+/* ------------------------------------------------------------------ */
+.leaflet-container {
+  font-family: "Inter", sans-serif;
+  background: hsl(var(--map-surface));
+  z-index: 0;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.leaflet-popup-content {
+  margin: 12px 14px;
+  color: hsl(var(--popover-foreground));
+}
+.leaflet-popup-content * { color: inherit; }
+.leaflet-popup-close-button {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 20px !important;
+  padding: 6px 8px 0 0 !important;
+}
+.leaflet-popup-close-button:hover { color: hsl(var(--foreground)) !important; }
+.leaflet-control-attribution {
+  background: hsl(var(--card) / 0.82) !important;
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 10px;
+}
+.leaflet-control-attribution a { color: hsl(var(--primary)) !important; }
+
+/* Custom markers */
+.rd-marker {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 2px solid var(--rd-c);
+  background: hsl(var(--card));
+  color: var(--rd-c);
+  font: 700 10px/1 "IBM Plex Mono", monospace;
+  box-shadow: 0 3px 8px hsl(213 40% 5% / 0.35);
+  transition: transform 160ms ease;
+}
+.rd-marker:hover { transform: scale(1.12); }
+.rd-marker-station { width: 13px; height: 13px; }
+.rd-marker-station.rd-interchange { width: 17px; height: 17px; }
+.rd-marker-train { min-width: 46px; height: 22px; padding: 0 6px; border-radius: 7px; }
+.rd-marker-maint { width: 23px; height: 23px; border-radius: 6px; }
+.rd-marker-alert { width: 24px; height: 24px; }
+
+.rd-c-service { --rd-c: hsl(var(--success)); }
+.rd-c-standby { --rd-c: hsl(var(--warning)); }
+.rd-c-ibl { --rd-c: hsl(var(--destructive)); }
+.rd-c-normal { --rd-c: hsl(var(--success)); }
+.rd-c-warning { --rd-c: hsl(var(--warning)); }
+.rd-c-critical { --rd-c: hsl(var(--destructive)); }
+.rd-c-station { --rd-c: hsl(var(--primary)); }

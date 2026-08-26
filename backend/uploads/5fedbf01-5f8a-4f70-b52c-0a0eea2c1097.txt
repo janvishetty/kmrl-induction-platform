@@ -1,0 +1,24 @@
+KOCHI METRO RAIL LIMITED
+MAINTENANCE JOB CARD
+[SYNTHETIC DEMO DATA — NOT AN OFFICIAL RECORD]
+
+Job Card No: JC-4488
+Trainset ID: TS-02
+Raised Date: 2026-08-18
+Status: CLOSED
+Priority: ROUTINE
+
+Reported Issue:
+Minor vibration noted in Bogie 1 during routine night inspection. No
+abnormal temperature readings recorded on traction motor units.
+
+Work Performed:
+- Visual inspection of Bogie 1 wheel assembly — no defects found.
+- Torque check on suspension mounting bolts — within specification.
+- Lubrication of axle box bearings performed per standard schedule.
+
+Parts Used: None
+Labour Hours: 1.5
+Technician: Rolling Stock Maintenance Team, Muttom Depot
+Closed Date: 2026-08-19
+Closure Remarks: No further action required. Cleared for service.
