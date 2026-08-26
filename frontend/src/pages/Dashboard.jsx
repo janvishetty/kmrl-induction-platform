@@ -34,7 +34,7 @@ function KpiCard({ icon: Icon, label, value, tone }) {
 
 export default function Dashboard() {
   const { t } = useApp();
-  const [mode, setMode] = useState("tomorrow");
+  const [mode, setMode] = useState("today");
   const selectedDate = mode === "tomorrow" ? tomorrowIST() : todayIST();
 
   const planQ = usePlan(selectedDate);
