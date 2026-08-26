@@ -1,4 +1,3 @@
-# src/sync_to_supabase.py
 """Sync induction plan + explanations to Supabase."""
 import os
 import json
