@@ -1,72 +1,372 @@
 """KORA — Bilingual (EN/ML) RAG chatbot over local ChromaDB.
 
-Hybrid retrieval: if the question mentions a trainset ID (like TS-02, etc.)
-the vector search is scoped to that train's documents via metadata filtering.
-This fixes the "25 near-identical certificates" confusion of pure vector search.
-Scoped searches fetch the train's full mini-dossier so the right doc is always in context.
+Hybrid retrieval:
+- If the question mentions a trainset ID such as TS-02,
+  retrieval is scoped to that trainset.
+- Otherwise, normal global vector search is performed.
+- Answers are generated using Gemini from retrieved context only.
 """
+
 import os
 import re
-import chromadb
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
-from google import genai
-from dotenv import load_dotenv
+from pathlib import Path
 from typing import Optional
 
-load_dotenv()
+import chromadb
+from chromadb.utils.embedding_functions import (
+    SentenceTransformerEmbeddingFunction,
+)
+from google import genai
+from dotenv import load_dotenv
 
-CHROMA_PATH = "data/chroma_db"
-COLLECTION = "kmrl_documents"   # matches ingest.py
-EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"  # matches ingest.py
 
-_client = chromadb.PersistentClient(path=CHROMA_PATH)
-_collection = _client.get_collection(
-    COLLECTION,
-    embedding_function=SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL),
+# ============================================================
+# PATHS / ENVIRONMENT
+# ============================================================
+
+# __file__ = ai-ml/src/rag.py
+# parent      = ai-ml/src
+# parent.parent = ai-ml
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Explicitly load ai-ml/.env
+ENV_FILE = BASE_DIR / ".env"
+load_dotenv(ENV_FILE)
+
+
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+# ai-ml/data/chroma_db
+CHROMA_PATH = BASE_DIR / "data" / "chroma_db"
+
+COLLECTION = "kmrl_documents"
+
+EMBEDDING_MODEL = (
+    "sentence-transformers/"
+    "paraphrase-multilingual-mpnet-base-v2"
 )
 
-gemini = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-LLM_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+LLM_MODEL = os.getenv(
+    "GEMINI_MODEL",
+    "gemini-3.6-flash"
+)
 
-SYSTEM_PROMPT = """You are KORA, the Document Assistant for Kochi Metro Rail Limited.
-Answer using ONLY the provided context chunks and mention the source document name.
-IMPORTANT: Reply in the SAME language as the user's question (English or Malayalam).
-If the context does not contain the answer, say so plainly. Never invent facts."""
+
+# ============================================================
+# API KEY
+# ============================================================
+
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+if not GOOGLE_API_KEY:
+    raise ValueError(
+        f"GOOGLE_API_KEY was not found. "
+        f"Make sure it exists in {ENV_FILE}"
+    )
+
+
+# ============================================================
+# CHROMADB
+# ============================================================
+
+_client = chromadb.PersistentClient(
+    path=str(CHROMA_PATH)
+)
+
+# The collection should already have been created by ingest.py.
+_collection = _client.get_collection(
+    COLLECTION,
+    embedding_function=SentenceTransformerEmbeddingFunction(
+        model_name=EMBEDDING_MODEL
+    ),
+)
+
+
+# ============================================================
+# GEMINI
+# ============================================================
+
+gemini = genai.Client(
+    api_key=GOOGLE_API_KEY
+)
+
+
+# ============================================================
+# SYSTEM PROMPT
+# ============================================================
+
+SYSTEM_PROMPT = """You are KORA, the Document Assistant for
+Kochi Metro Rail Limited.
+
+Answer using ONLY the provided context chunks.
+
+Rules:
+1. Mention the source document name when answering.
+2. Reply in the SAME language as the user's question:
+   - English question → English answer
+   - Malayalam question → Malayalam answer
+3. If the context does not contain the answer,
+   say so plainly.
+4. Never invent or assume facts.
+5. Do not use information outside the provided context.
+"""
+
+
+# ============================================================
+# TRAINSET ID HELPERS
+# ============================================================
 
 def _norm(tid: str) -> str:
-    """Normalize any ID form ('ts-2', 'TS-02') to metadata format 'TS-02'."""
-    d = re.search(r"\d+", tid)
-    return f"TS-{d.group(0)}" if d else tid.upper()
+    """
+    Normalize trainset IDs.
 
-def _detect_trainset(query: str) -> Optional[str]:
-    """Auto-extract 'TS-XX' from the question text."""
-    m = re.search(r"TS-?\d+", query, re.IGNORECASE)
-    return _norm(m.group(0)) if m else None
+    Examples:
+        ts-2  -> TS-2
+        TS-02 -> TS-02
+        TS-25 -> TS-25
+    """
 
-def _retrieve(query: str, trainset_id: Optional[str], n_results: int):
-    kwargs = {"query_texts": [query], "n_results": n_results}
+    d = re.search(
+        r"\d+",
+        tid
+    )
+
+    return (
+        f"TS-{d.group(0)}"
+        if d
+        else tid.upper()
+    )
+
+
+def _detect_trainset(
+    query: str
+) -> Optional[str]:
+    """
+    Automatically detect a trainset ID
+    from the user's question.
+
+    Examples:
+        "What is the status of TS-02?"
+        -> TS-02
+
+        "Tell me about ts-15"
+        -> TS-15
+    """
+
+    match = re.search(
+        r"TS-?\d+",
+        query,
+        re.IGNORECASE
+    )
+
+    return (
+        _norm(match.group(0))
+        if match
+        else None
+    )
+
+
+# ============================================================
+# RETRIEVAL
+# ============================================================
+
+def _retrieve(
+    query: str,
+    trainset_id: Optional[str],
+    n_results: int
+):
+    """
+    Retrieve relevant documents from ChromaDB.
+
+    If trainset_id is provided, search only documents
+    belonging to that trainset.
+    """
+
+    kwargs = {
+        "query_texts": [query],
+        "n_results": n_results,
+    }
+
     if trainset_id:
-        kwargs["where"] = {"trainset_id": trainset_id}   # metadata-scoped vector search
-    res = _collection.query(**kwargs)
-    return res.get("documents", [[]])[0], res.get("metadatas", [[]])[0]
 
-def ask(query: str, trainset_id: Optional[str] = None, n_results: int = 4) -> dict:
-    tid = _norm(trainset_id) if trainset_id else _detect_trainset(query)
+        kwargs["where"] = {
+            "trainset_id": trainset_id
+        }
 
-    # Scoped search = tiny corpus : the train's whole mini-dossier (cert included)
-    k = max(n_results, 8) if tid else n_results
-    docs, metas = _retrieve(query, tid, k)
-    if not docs and tid:   # unknown train mentioned -> fall back to global search
-        docs, metas = _retrieve(query, None, n_results)
+    result = _collection.query(
+        **kwargs
+    )
+
+    documents = result.get(
+        "documents",
+        [[]]
+    )[0]
+
+    metadatas = result.get(
+        "metadatas",
+        [[]]
+    )[0]
+
+    return documents, metadatas
+
+
+# ============================================================
+# ASK KORA
+# ============================================================
+
+def ask(
+    query: str,
+    trainset_id: Optional[str] = None,
+    n_results: int = 4
+) -> dict:
+    """
+    Main RAG chatbot function.
+
+    Returns:
+
+    {
+        "answer": "...",
+        "sources": [...]
+    }
+    """
+
+    # --------------------------------------------------------
+    # Detect trainset
+    # --------------------------------------------------------
+
+    tid = (
+        _norm(trainset_id)
+        if trainset_id
+        else _detect_trainset(query)
+    )
+
+    # --------------------------------------------------------
+    # Retrieval size
+    # --------------------------------------------------------
+
+    # When a trainset is specified, retrieve more documents
+    # because the train may have multiple certificates,
+    # job cards, cleaning records, branding documents, etc.
+    k = (
+        max(n_results, 8)
+        if tid
+        else n_results
+    )
+
+    # --------------------------------------------------------
+    # Retrieve
+    # --------------------------------------------------------
+
+    docs, metas = _retrieve(
+        query,
+        tid,
+        k
+    )
+
+    # --------------------------------------------------------
+    # Fallback
+    # --------------------------------------------------------
+
+    # If TS-XX was mentioned but no documents were found
+    # for that train, perform a global search.
+    if not docs and tid:
+
+        docs, metas = _retrieve(
+            query,
+            None,
+            n_results
+        )
+
+    # --------------------------------------------------------
+    # No documents
+    # --------------------------------------------------------
 
     if not docs:
-        return {"answer": "No relevant documents found.", "sources": []}
+
+        return {
+            "answer": "No relevant documents found.",
+            "sources": [],
+        }
+
+    # --------------------------------------------------------
+    # Build context
+    # --------------------------------------------------------
+
+    context_parts = []
+
+    for doc, metadata in zip(
+        docs,
+        metas
+    ):
+
+        source_file = metadata.get(
+            "source_file",
+            "unknown"
+        )
+
+        language = metadata.get(
+            "language",
+            "en"
+        )
+
+        context_parts.append(
+            f"[source: {source_file} | lang: {language}]\n"
+            f"{doc}"
+        )
 
     context = "\n\n".join(
-        f"[source: {m.get('source_file', 'unknown')} | lang: {m.get('language', 'en')}]\n{d}"
-        for d, m in zip(docs, metas)
+        context_parts
     )
-    prompt = f"{SYSTEM_PROMPT}\n\nCONTEXT:\n{context}\n\nQUESTION: {query}\nANSWER:"
-    answer = gemini.models.generate_content(model=LLM_MODEL, contents=[prompt]).text
-    sources = sorted({m.get("source_file", "unknown") for m in metas})
-    return {"answer": answer, "sources": sources}
+
+    # --------------------------------------------------------
+    # Prompt
+    # --------------------------------------------------------
+
+    prompt = (
+        f"{SYSTEM_PROMPT}\n\n"
+        f"CONTEXT:\n"
+        f"{context}\n\n"
+        f"QUESTION:\n"
+        f"{query}\n\n"
+        f"ANSWER:"
+    )
+
+    # --------------------------------------------------------
+    # Gemini
+    # --------------------------------------------------------
+
+    response = gemini.models.generate_content(
+        model=LLM_MODEL,
+        contents=[prompt]
+    )
+
+    answer = (
+        response.text.strip()
+        if response.text
+        else "No answer was generated."
+    )
+
+    # --------------------------------------------------------
+    # Sources
+    # --------------------------------------------------------
+
+    sources = sorted(
+        {
+            metadata.get(
+                "source_file",
+                "unknown"
+            )
+            for metadata in metas
+        }
+    )
+
+    # --------------------------------------------------------
+    # Return
+    # --------------------------------------------------------
+
+    return {
+        "answer": answer,
+        "sources": sources,
+    }
