@@ -1,68 +1,70 @@
-# KMRL Induction Navigator
+# Getting Started with Create React App
 
-Build the frontend prototype for my KMRL SIH project and make sure the following MUST-HAVE features are actually represented and functional in the UI:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Unified Document Intelligence — upload/index documents from PDFs, Excel, Word, images, etc.
+## Available Scripts
 
-AI-powered semantic search across all documents, not just keyword search.
+In the project directory, you can run:
 
-AI Q&A — users can ask questions about KMRL documents and get concise answers.
+### `npm start`
 
-Source citations / traceability — every AI answer must show the exact document, page/section, and source used.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-English + Malayalam support — UI/search should visibly support both languages.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Document classification & extraction — identify document type, department, dates, employee IDs, certifications, etc.
+### `npm test`
 
-Compliance intelligence — detect expired/expiring certifications, missing documents, safety violations and other compliance issues.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Staff competency profiles — qualifications, certifications, training, experience, availability and expiry dates.
+### `npm run build`
 
-Explainable Induction Planner — HERO FEATURE:
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Select shift + operational requirement
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Identify eligible staff
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Recommend the best staff
+### `npm run eject`
 
-Show WHY each person was selected
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-Show WHY other candidates were rejected
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Detect conflicts and compliance violations
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-Alerts & notifications for critical compliance/document/induction issues.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-Audit trail showing who uploaded, searched, approved, changed or generated recommendations.
+## Learn More
 
-Dashboard showing document status, compliance health, staff availability, alerts and induction readiness.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Use realistic mock KMRL data so every feature can be demonstrated without a backend.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-The prototype should feel like a real railway operations intelligence system, not a generic admin dashboard.
+### Code Splitting
 
-Prioritize these features over unnecessary decorative UI. The Induction Planner + Explainability + Document Intelligence + Compliance + Traceability are the core differentiators and must be visually prominent.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-First inspect my existing repository and preserve its current architecture. Then implement, test, and fix the frontend so it runs successfully.
+### Analyzing the Bundle Size
 
-This project was built with [Lovable](https://lovable.dev).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-## Build with Lovable
+### Making a Progressive Web App
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3b25d31d-507e-4377-8e2a-c38b07d82e41).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+### Advanced Configuration
 
-## Development
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+### Deployment
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
