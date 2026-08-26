@@ -13,7 +13,7 @@ from google.genai import types
 load_dotenv()
 gemini_client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# --- Configuration ---
+# configure
 RAW_DATA_DIR = "data/raw"                 # folder to look at
 CHROMA_PERSIST_DIR = "data/chroma_db"     # folder to save the vector DB in
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
@@ -46,7 +46,7 @@ def get_metadata(file_path):
 
     return {
         "trainset_id": trainset_id or "UNKNOWN",
-        "doc_type": parent_folder,      # e.g. "job_cards", "branding_contracts", "circulars"
+        "doc_type": parent_folder,      #  "job_cards", "branding_contracts", "circulars" etc.
         "language": language,
         "source_file": filename,
     }
@@ -101,9 +101,8 @@ def load_documents():
         metadata = get_metadata(file_path)
         try:
             if file_path.lower().endswith(".pdf") and metadata["language"] == "ml":
-                # Malayalam PDF -> route through Gemini vision OCR instead of
-                # PyPDFLoader, since pypdf's text-layer extraction is unreliable
-                # for Indic scripts even when the PDF renders correctly visually.
+                # Malayalam PDF ( route through Gemini vision OCR instead of PyPDFLoader, since pypdf's text-layer extraction is 
+                # unreliable for Indic scripts even when the PDF renders correctly visually.
                 print(f"  -> Using Gemini vision OCR for Malayalam file: {metadata['source_file']}")
                 text = extract_via_gemini_vision(file_path)
                 docs = [Document(page_content=text, metadata={})]
@@ -115,6 +114,9 @@ def load_documents():
                 docs = loader.load()
 
             for doc in docs:
+            #Replace hidden PDF control chars with spaces
+                doc.page_content = re.sub(r'[\x00-\x1F\x7F-\x9F]', ' ', doc.page_content)
+                doc.page_content = re.sub(r'\s+', ' ', doc.page_content).strip()
                 doc.metadata.update(metadata)
                 doc.metadata["page"] = doc.metadata.get("page", 0)
 
@@ -176,7 +178,7 @@ if __name__ == "__main__":
         print("No documents found! Check your data/raw folder path and EXCLUDE_FOLDERS.")
         exit()
 
-    # --- Malayalam extraction sanity check ---
+    #  Malayalam extraction sanity check
     # Confirms the Gemini OCR path produced readable text before you spend
     # time embedding/chunking. If this still prints garbage, the issue is
     # upstream (bad scan quality) rather than the extraction method.
@@ -193,4 +195,4 @@ if __name__ == "__main__":
     print(f"Split into {len(chunks)} chunks.")
 
     store_in_chromadb(chunks)
-    print("--- Ingestion complete! ---")
+    print("-- Ingestion complete! --")
