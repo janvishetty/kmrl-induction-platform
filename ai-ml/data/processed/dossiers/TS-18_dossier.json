@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-18",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2027-01-31",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "closed",
+    "severity": "minor",
+    "description": "Onboard signalling unit firmware flag"
+  },
+  "branding": {
+    "advertiser_name": null,
+    "min_daily_exposure_km": null,
+    "priority_level": "none"
+  },
+  "mileage": {
+    "current_odometer": 44416,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": "completed",
+    "bay_assignment": "Cleaning Bay 2"
+  },
+  "stabling": {
+    "current_bay": "Track 6",
+    "shunting_cost_to_service": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-05",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2027-07-09",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "open",
+    "severity": "critical",
+    "description": "Brake pad wear beyond threshold on Bogie 2"
+  },
+  "branding": {
+    "advertiser_name": "OrbitMobile Networks",
+    "min_daily_exposure_km": 200,
+    "priority_level": "medium"
+  },
+  "mileage": {
+    "current_odometer": 42652,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": "completed",
+    "bay_assignment": "Cleaning Bay 2"
+  },
+  "stabling": {
+    "current_bay": "Track 3",
+    "shunting_cost_to_service": 2
+  }
+}

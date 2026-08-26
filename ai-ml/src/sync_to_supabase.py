@@ -1,4 +1,3 @@
-# src/sync_to_supabase.py
 """Sync induction plan + explanations to Supabase."""
 import os
 import json
@@ -35,7 +34,7 @@ def sync_plan():
         on_conflict="plan_date"
     ).execute()
     
-    print(f"✅ Synced induction plan for {plan['plan_date']} to Supabase")
+    print(f"Synced induction plan for {plan['plan_date']} to Supabase")
 
 def sync_explanations():
     """Sync the 25 train explanations to the 'explanations' table."""
@@ -43,7 +42,7 @@ def sync_explanations():
     plan_path = "data/processed/induction_plan.json"
     
     if not os.path.exists(expl_path):
-        print("❌ explanations.json not found. Run `python src/explain.py` first.")
+        print("Explanations.json not found. Run `python src/explain.py` first.")
         return
 
     with open(expl_path, encoding="utf-8") as f:
@@ -57,21 +56,21 @@ def sync_explanations():
     rows = [
         {
             "plan_date": plan_date,
-            "train_id": train_id,
+            "trainset_id": trainset_id,
             "assignment": info["assignment"],
             "explanation": info["explanation"],
             "sources": info["sources"],
         }
-        for train_id, info in explanations.items()
+        for trainset_id, info in explanations.items()
     ]
     
-    # Upsert (uses plan_date + train_id as unique constraint)
+    # Upsert (uses plan_date + trainset_id as unique constraint)
     response = sb.table("explanations").upsert(
         rows, 
-        on_conflict="plan_date,train_id"
+        on_conflict="plan_date,trainset_id"
     ).execute()
     
-    print(f"✅ Synced {len(rows)} explanations to Supabase")
+    print(f"Synced {len(rows)} explanations to Supabase")
 
 if __name__ == "__main__":
     print("--- Starting Supabase Sync ---")

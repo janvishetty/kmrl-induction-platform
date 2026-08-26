@@ -1,4 +1,3 @@
-# src/optimize.py
 #KMRL Explainable Induction Planner (using PuLP).
 
 import os
@@ -56,7 +55,7 @@ def load_trainsets(csv_path=DOSSIER_CSV, plan_date=None):
         status_ok = str(r.get("fitness_status", "")).strip().lower() == "valid"
         bk = str(r.get("branding_min_km", "")).strip()
         trains.append(TrainFeatureData(
-            train_id=str(r.get("trainset_id")),
+            trainset_id=str(r.get("trainset_id")),
             fitness_valid=_fitness_valid(status_ok, expiry, plan_date),
             fitness_expiry=expiry or None,
             issuing_authority=str(r.get("issuing_authority")) or None,
@@ -107,7 +106,7 @@ def generate_induction_plan(trainsets, plan_date=None):
     alerts = []
     categories = ["SERVICE", "STANDBY", "IBL"]
     prob = pulp.LpProblem("KMRL_Induction_Optimization", pulp.LpMaximize)
-    x = {(t.train_id, c): pulp.LpVariable(f"X_{t.train_id}_{c}", cat="Binary")
+    x = {(t.trainset_id, c): pulp.LpVariable(f"X_{t.trainset_id}_{c}", cat="Binary")
          for t in trainsets for c in categories}
 
     #hard safety
@@ -118,35 +117,35 @@ def generate_induction_plan(trainsets, plan_date=None):
             rules.append(f"Fitness certificate not valid on {plan_date} (expiry {t.fitness_expiry or 'unknown'}) -> forced IBL")
         if t.job_card_status == "open" and t.job_card_severity == "critical":
             rules.append(f"CRITICAL open job card: {t.job_card_desc or 'see job card'} -> forced IBL")
-        hard_rules[t.train_id] = rules
+        hard_rules[t.trainset_id] = rules
         if rules:
-            alerts.append(AlertTrigger(train_id=t.train_id, issue_type="SAFETY_VIOLATION",
+            alerts.append(AlertTrigger(trainset_id=t.trainset_id, issue_type="SAFETY_VIOLATION",
                                        message=" | ".join(rules)))
         if t.cleaning_status == "scheduled" and not rules:
-            alerts.append(AlertTrigger(train_id=t.train_id, issue_type="OPERATIONAL",
+            alerts.append(AlertTrigger(trainset_id=t.trainset_id, issue_type="OPERATIONAL",
                 message=f"Cleaning scheduled (bay {t.cleaning_bay or 'TBA'}) tonight -> blocked from SERVICE"))
 
     #assignment + hard constraints
     for t in trainsets:
-        prob += pulp.lpSum(x[t.train_id, c] for c in categories) == 1
-        if hard_rules[t.train_id]:
-            prob += x[t.train_id, "IBL"] == 1
+        prob += pulp.lpSum(x[t.trainset_id, c] for c in categories) == 1
+        if hard_rules[t.trainset_id]:
+            prob += x[t.trainset_id, "IBL"] == 1
         if t.cleaning_status == "scheduled":
-            prob += x[t.train_id, "SERVICE"] == 0
+            prob += x[t.trainset_id, "SERVICE"] == 0
 
     #GTFS service demand
     eligible = [t for t in trainsets
-                if not hard_rules[t.train_id] and t.cleaning_status != "scheduled"]
+                if not hard_rules[t.trainset_id] and t.cleaning_status != "scheduled"]
     demand_capped = min(demand, len(eligible))
     if demand_capped < demand:
-        alerts.append(AlertTrigger(train_id="SYSTEM", issue_type="SERVICE_SHORTFALL",
+        alerts.append(AlertTrigger(trainset_id="SYSTEM", issue_type="SERVICE_SHORTFALL",
             message=f"Only {demand_capped} safe trainsets available vs {demand} required by {day_type} schedule"))
-    prob += pulp.lpSum(x[t.train_id, "SERVICE"] for t in trainsets) == demand_capped
+    prob += pulp.lpSum(x[t.trainset_id, "SERVICE"] for t in trainsets) == demand_capped
 
-    non_forced = [t for t in trainsets if not hard_rules[t.train_id]]
+    non_forced = [t for t in trainsets if not hard_rules[t.trainset_id]]
     reserve = max(0, min(STANDBY_RESERVE, len(non_forced) - demand_capped))
     if reserve:
-        prob += pulp.lpSum(x[t.train_id, "STANDBY"] for t in trainsets) >= reserve
+        prob += pulp.lpSum(x[t.trainset_id, "STANDBY"] for t in trainsets) >= reserve
 
     #multi-objective scores
     odos = [t.odometer for t in trainsets]
@@ -162,60 +161,60 @@ def generate_induction_plan(trainsets, plan_date=None):
         maint = 1.0 if ((t.job_card_status == "open" and t.job_card_severity in ("major", "minor"))
                         or t.mileage_deviation == "deviated") else 0.0
         health = 0.5 if (t.fitness_valid and t.job_card_status == "closed") else 0.1
-        scores[t.train_id] = {"branding": brand, "mileage_balance": round(mile, 3),
+        scores[t.trainset_id] = {"branding": brand, "mileage_balance": round(mile, 3),
                               "shunting": round(shunt, 3), "maintenance_need": maint,
                               "standby_health": health}
 
-    svc_coef = {t.train_id: (W_BRAND * scores[t.train_id]["branding"]
-                             + W_MILE * scores[t.train_id]["mileage_balance"]
-                             - W_SHUNT * scores[t.train_id]["shunting"])
+    svc_coef = {t.trainset_id: (W_BRAND * scores[t.trainset_id]["branding"]
+                             + W_MILE * scores[t.trainset_id]["mileage_balance"]
+                             - W_SHUNT * scores[t.trainset_id]["shunting"])
                 for t in trainsets}
 
     prob += pulp.lpSum(
-        x[t.train_id, "SERVICE"] * svc_coef[t.train_id]
-        + x[t.train_id, "STANDBY"] * scores[t.train_id]["standby_health"]
-        + x[t.train_id, "IBL"] * scores[t.train_id]["maintenance_need"]
+        x[t.trainset_id, "SERVICE"] * svc_coef[t.trainset_id]
+        + x[t.trainset_id, "STANDBY"] * scores[t.trainset_id]["standby_health"]
+        + x[t.trainset_id, "IBL"] * scores[t.trainset_id]["maintenance_need"]
         for t in trainsets)
 
     prob.solve(pulp.PULP_CBC_CMD(msg=0))
     if pulp.LpStatus[prob.status] != "Optimal":
-        alerts.append(AlertTrigger(train_id="SYSTEM", issue_type="SOLVER",
+        alerts.append(AlertTrigger(trainset_id="SYSTEM", issue_type="SOLVER",
                                    message=f"Solver status: {pulp.LpStatus[prob.status]}"))
 
     #ranked, explainable output
     sources = build_source_map()
     assign = {}
     for t in trainsets:
-        vals = {c: (x[t.train_id, c].value() or 0.0) for c in categories}
-        assign[t.train_id] = max(vals, key=vals.get)
+        vals = {c: (x[t.trainset_id, c].value() or 0.0) for c in categories}
+        assign[t.trainset_id] = max(vals, key=vals.get)
 
-    rank_key = {"SERVICE": lambda t: svc_coef[t.train_id],
-                "STANDBY": lambda t: scores[t.train_id]["standby_health"],
-                "IBL":     lambda t: scores[t.train_id]["maintenance_need"]}
-    ranked = {c: sorted([t for t in trainsets if assign[t.train_id] == c],
+    rank_key = {"SERVICE": lambda t: svc_coef[t.trainset_id],
+                "STANDBY": lambda t: scores[t.trainset_id]["standby_health"],
+                "IBL":     lambda t: scores[t.trainset_id]["maintenance_need"]}
+    ranked = {c: sorted([t for t in trainsets if assign[t.trainset_id] == c],
                         key=rank_key[c], reverse=True) for c in categories}
 
     results = {
         "plan_date": plan_date.isoformat(),
         "day_type": day_type,
         "service_demand": demand,
-        "service_list": [{"rank": i + 1, "train_id": t.train_id,
-                          "score": round(svc_coef[t.train_id], 3)}
+        "service_list": [{"rank": i + 1, "trainset_id": t.trainset_id,
+                          "score": round(svc_coef[t.trainset_id], 3)}
                          for i, t in enumerate(ranked["SERVICE"])],
-        "standby_list": [t.train_id for t in ranked["STANDBY"]],
-        "ibl_list": [t.train_id for t in ranked["IBL"]],
+        "standby_list": [t.trainset_id for t in ranked["STANDBY"]],
+        "ibl_list": [t.trainset_id for t in ranked["IBL"]],
         "system_alerts": [a.model_dump() for a in alerts],
         "explainability": {
-            t.train_id: {
-                "assignment": assign[t.train_id],
-                "hard_rules": hard_rules[t.train_id] or ["none - passed all safety gates"],
-                "scores": scores[t.train_id],
-                "sources": sorted(sources.get(t.train_id, [])),
+            t.trainset_id: {
+                "assignment": assign[t.trainset_id],
+                "hard_rules": hard_rules[t.trainset_id] or ["none - passed all safety gates"],
+                "scores": scores[t.trainset_id],
+                "sources": sorted(sources.get(t.trainset_id, [])),
             } for t in trainsets
         },
     }
 
-    audit = {"service": [e["train_id"] for e in results["service_list"]],
+    audit = {"service": [e["trainset_id"] for e in results["service_list"]],
              "standby": results["standby_list"], "ibl": results["ibl_list"],
              "alerts": results["system_alerts"]}
     results["audit_hash"] = hashlib.sha256(
@@ -229,7 +228,7 @@ if __name__ == "__main__":
     plan = generate_induction_plan(trains, plan_date)
     with open(OUT_JSON, "w", encoding="utf-8") as f:
         json.dump(plan, f, indent=2, ensure_ascii=False)
-    print(f"SERVICE ({len(plan['service_list'])}): {[e['train_id'] for e in plan['service_list']]}")
+    print(f"SERVICE ({len(plan['service_list'])}): {[e['trainset_id'] for e in plan['service_list']]}")
     print(f"STANDBY ({len(plan['standby_list'])}): {plan['standby_list']}")
     print(f"IBL     ({len(plan['ibl_list'])}): {plan['ibl_list']}")
     print(f"Alerts: {len(plan['system_alerts'])} | audit_hash: {plan['audit_hash'][:16]}...")

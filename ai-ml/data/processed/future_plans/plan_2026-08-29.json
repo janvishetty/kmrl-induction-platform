@@ -1,0 +1,515 @@
+{
+  "plan_date": "2026-08-29",
+  "day_type": "WK",
+  "service_demand": 20,
+  "service_list": [
+    {
+      "rank": 1,
+      "trainset_id": "TS-06",
+      "score": 6.894
+    },
+    {
+      "rank": 2,
+      "trainset_id": "TS-02",
+      "score": 6.224
+    },
+    {
+      "rank": 3,
+      "trainset_id": "TS-16",
+      "score": 5.912
+    },
+    {
+      "rank": 4,
+      "trainset_id": "TS-17",
+      "score": 5.506
+    },
+    {
+      "rank": 5,
+      "trainset_id": "TS-14",
+      "score": 4.937
+    },
+    {
+      "rank": 6,
+      "trainset_id": "TS-10",
+      "score": 4.506
+    },
+    {
+      "rank": 7,
+      "trainset_id": "TS-18",
+      "score": 2.471
+    },
+    {
+      "rank": 8,
+      "trainset_id": "TS-13",
+      "score": 1.467
+    },
+    {
+      "rank": 9,
+      "trainset_id": "TS-12",
+      "score": 0.125
+    }
+  ],
+  "standby_list": [
+    "TS-07",
+    "TS-08",
+    "TS-20"
+  ],
+  "ibl_list": [
+    "TS-01",
+    "TS-03",
+    "TS-05",
+    "TS-09",
+    "TS-11",
+    "TS-19",
+    "TS-21",
+    "TS-22",
+    "TS-23",
+    "TS-24",
+    "TS-25",
+    "TS-04",
+    "TS-15"
+  ],
+  "system_alerts": [
+    {
+      "trainset_id": "TS-01",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "Fitness certificate not valid on 2026-08-29 (expiry 2026-07-22) -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-03",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-04",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "Fitness certificate not valid on 2026-08-29 (expiry 2025-11-21) -> forced IBL | CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-05",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-07",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 5) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-08",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 3) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-09",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-11",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 5) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-15",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-19",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 3) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-20",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 4) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-21",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "Fitness certificate not valid on 2026-08-29 (expiry 2026-06-18) -> forced IBL | CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-22",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 4) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-23",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 1) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "TS-24",
+      "issue_type": "SAFETY_VIOLATION",
+      "message": "Fitness certificate not valid on 2026-08-29 (expiry 2026-07-15) -> forced IBL | CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL"
+    },
+    {
+      "trainset_id": "TS-25",
+      "issue_type": "OPERATIONAL",
+      "message": "Cleaning scheduled (bay Cleaning Bay 4) tonight -> blocked from SERVICE"
+    },
+    {
+      "trainset_id": "SYSTEM",
+      "issue_type": "SERVICE_SHORTFALL",
+      "message": "Only 9 safe trainsets available vs 20 required by WK schedule"
+    }
+  ],
+  "explainability": {
+    "TS-01": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "Fitness certificate not valid on 2026-08-29 (expiry 2026-07-22) -> forced IBL"
+      ],
+      "scores": {
+        "branding": 3.0,
+        "mileage_balance": 0.557,
+        "shunting": 0.667,
+        "maintenance_need": 1.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-02": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 3.0,
+        "mileage_balance": 0.224,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-03": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 2.687,
+        "shunting": 0.667,
+        "maintenance_need": 1.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-04": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "Fitness certificate not valid on 2026-08-29 (expiry 2025-11-21) -> forced IBL",
+        "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 1.631,
+        "shunting": 0.333,
+        "maintenance_need": 0.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-05": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 2.643,
+        "shunting": 0.667,
+        "maintenance_need": 1.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-06": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 2.894,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-07": {
+      "assignment": "STANDBY",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 1.581,
+        "shunting": 0.667,
+        "maintenance_need": 0.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-08": {
+      "assignment": "STANDBY",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 1.732,
+        "shunting": 0.0,
+        "maintenance_need": 0.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-09": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 0.089,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-10": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 0.506,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-11": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 3.0,
+        "mileage_balance": 0.354,
+        "shunting": 0.333,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-12": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 0.125,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-13": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 2.468,
+        "shunting": 0.667,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-14": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 0.937,
+        "shunting": 0.0,
+        "maintenance_need": 0.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-15": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL"
+      ],
+      "scores": {
+        "branding": 3.0,
+        "mileage_balance": 1.885,
+        "shunting": 0.0,
+        "maintenance_need": 0.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-16": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 3.0,
+        "mileage_balance": 0.412,
+        "shunting": 0.333,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-17": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 1.506,
+        "shunting": 0.0,
+        "maintenance_need": 0.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-18": {
+      "assignment": "SERVICE",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 2.471,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-19": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 3.0,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-20": {
+      "assignment": "STANDBY",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 1.591,
+        "shunting": 0.0,
+        "maintenance_need": 0.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-21": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "Fitness certificate not valid on 2026-08-29 (expiry 2026-06-18) -> forced IBL",
+        "CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 0.034,
+        "shunting": 1.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-22": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 2.0,
+        "mileage_balance": 2.721,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-23": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 0.612,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    },
+    "TS-24": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "Fitness certificate not valid on 2026-08-29 (expiry 2026-07-15) -> forced IBL",
+        "CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 0.201,
+        "shunting": 1.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.1
+      },
+      "sources": []
+    },
+    "TS-25": {
+      "assignment": "IBL",
+      "hard_rules": [
+        "none - passed all safety gates"
+      ],
+      "scores": {
+        "branding": 0.0,
+        "mileage_balance": 0.0,
+        "shunting": 0.0,
+        "maintenance_need": 1.0,
+        "standby_health": 0.5
+      },
+      "sources": []
+    }
+  },
+  "audit_hash": "d5e032bc225f1d70d46487102cdf791e87d56527e254a466fb0972b7c5a2f4d8"
+}

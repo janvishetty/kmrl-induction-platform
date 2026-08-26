@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-13",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2026-12-18",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "closed",
+    "severity": "none",
+    "description": "No open work order. Routine maintenance up to date."
+  },
+  "branding": {
+    "advertiser_name": null,
+    "min_daily_exposure_km": null,
+    "priority_level": "none"
+  },
+  "mileage": {
+    "current_odometer": 44449,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": null,
+    "bay_assignment": null
+  },
+  "stabling": {
+    "current_bay": "Track 5",
+    "shunting_cost_to_service": 2
+  }
+}

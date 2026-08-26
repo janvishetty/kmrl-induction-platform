@@ -31,23 +31,23 @@ if os.path.exists(DOSSIER_CSV):
         dossier[str(r["trainset_id"])] = r
 
 #rule based core
-def build_explanation(train_id, info, plan):
+def build_explanation(trainset_id, info, plan):
     assignment = info.get("assignment", "?")
     hard_rules = info.get("hard_rules", [])
     scores = info.get("scores", {})
     sources = info.get("sources", [])
 
-    d = dossier.get(train_id)
+    d = dossier.get(trainset_id)
     cleaning = str(d.get("cleaning_status", "")).strip().lower() if d is not None else ""
 
     lines = []
     #Header
     if assignment == "SERVICE":
-        lines.append(f"[SERVICE] {train_id} is CLEARED FOR SERVICE on {plan.get('plan_date')}.")
+        lines.append(f"[SERVICE] {trainset_id} is CLEARED FOR SERVICE on {plan.get('plan_date')}.")
     elif assignment == "STANDBY":
-        lines.append(f"[STANDBY] {train_id} is held in STANDBY (healthy reserve) on {plan.get('plan_date')}.")
+        lines.append(f"[STANDBY] {trainset_id} is held in STANDBY (healthy reserve) on {plan.get('plan_date')}.")
     else:
-        lines.append(f"[IBL] {train_id} is sent to IBL (maintenance) on {plan.get('plan_date')}.")
+        lines.append(f"[IBL] {trainset_id} is sent to IBL (maintenance) on {plan.get('plan_date')}.")
 
     #Hard safety rules
     has_hard = bool(hard_rules) and hard_rules != ["none - passed all safety gates"]
@@ -91,7 +91,7 @@ def build_explanation(train_id, info, plan):
     return "\n".join(lines)
 
 # gemini polish
-def gemini_polish(train_id, raw):
+def gemini_polish(trainset_id, raw):
     prompt = (
         "You are a KMRL depot operations assistant. Rewrite this train induction "
         "explanation into 1-2 clear, professional sentences for a supervisor. "
@@ -124,17 +124,17 @@ def main():
 
     # full dump
     explanations = {}
-    for train_id, info in explainability.items():
-        raw = build_explanation(train_id, info, plan)
+    for trainset_id, info in explainability.items():
+        raw = build_explanation(trainset_id, info, plan)
         if USE_GEMINI:
             try:
-                final = gemini_polish(train_id, raw)
+                final = gemini_polish(trainset_id, raw)
             except Exception as e:
-                print(f"  Gemini failed for {train_id} ({e}); using rule-based.")
+                print(f"  Gemini failed for {trainset_id} ({e}); using rule-based.")
                 final = raw
         else:
             final = raw
-        explanations[train_id] = {
+        explanations[trainset_id] = {
             "assignment": info.get("assignment"),
             "explanation": final,
             "sources": info.get("sources", []),
@@ -146,8 +146,8 @@ def main():
     order = {"IBL": 0, "SERVICE": 1, "STANDBY": 2}
     print(f"\n{'='*70}\nINDUCTION EXPLANATIONS - {plan.get('plan_date')} "
           f"({plan.get('day_type')} schedule)\n{'='*70}")
-    for train_id in sorted(explanations, key=lambda t: order[explanations[t]["assignment"]]):
-        print("\n" + explanations[train_id]["explanation"])
+    for trainset_id in sorted(explanations, key=lambda t: order[explanations[t]["assignment"]]):
+        print("\n" + explanations[trainset_id]["explanation"])
 
     print(f"\nSaved {len(explanations)} explanations to {OUT_JSON}")
     if not USE_GEMINI:
