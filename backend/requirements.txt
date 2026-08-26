@@ -57,3 +57,4 @@ pandas>=2.0.0
 Pillow
 pytesseract
 web3
+src
