@@ -40,8 +40,20 @@ export function AppProvider({ children }) {
 
   const t = useCallback((key) => translate(key, lang), [lang]);
 
+  // Exporting BOTH `lang` and `language` so any component can use either one seamlessly
   const value = useMemo(
-    () => ({ theme, setTheme, toggleTheme, lang, setLang, toggleLang, t, koraOpen, setKoraOpen }),
+    () => ({ 
+      theme, 
+      setTheme, 
+      toggleTheme, 
+      lang, 
+      language: lang, // <--- Added alias so language checks never fail
+      setLang, 
+      toggleLang, 
+      t, 
+      koraOpen, 
+      setKoraOpen 
+    }),
     [theme, setTheme, toggleTheme, lang, setLang, toggleLang, t, koraOpen]
   );
 
