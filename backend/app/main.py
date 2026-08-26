@@ -52,7 +52,6 @@ app.include_router(metrics.router)
 app.include_router(operations.router)
 app.include_router(stations.router)
 app.include_router(trainsets.router)
-app.include_router(ml_router, prefix="/ml", tags=["ML"])
 app.include_router(admin.router)
 
 # -----------------------------
