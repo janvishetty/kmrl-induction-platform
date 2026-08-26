@@ -1,0 +1,26 @@
+trainset_id,cleaning_type,scheduled_date,bay_assigned,status,last_cleaned_date
+TS-01,Exterior Wash,2026-08-21,Cleaning Bay 5,Completed,2026-08-21
+TS-02,Regular Interior Clean,2026-08-16,Cleaning Bay 1,Completed,2026-08-16
+TS-03,Regular Interior Clean,2026-08-24,Cleaning Bay 1,Scheduled,2026-08-13
+TS-04,Regular Interior Clean,N/A,N/A,Pending — unassigned,2026-08-20
+TS-05,Exterior Wash,2026-08-20,Cleaning Bay 2,Completed,2026-08-20
+TS-06,Regular Interior Clean,2026-08-12,Cleaning Bay 5,Completed,2026-08-12
+TS-07,Deep Clean & Disinfection,2026-08-22,Cleaning Bay 5,Scheduled,2026-08-12
+TS-08,Regular Interior Clean,2026-08-23,Cleaning Bay 3,Scheduled,2026-08-16
+TS-09,Regular Interior Clean,2026-08-15,Cleaning Bay 3,Completed,2026-08-15
+TS-10,Regular Interior Clean,2026-08-20,Cleaning Bay 4,Completed,2026-08-20
+TS-11,Regular Interior Clean,2026-08-22,Cleaning Bay 5,Scheduled,2026-08-12
+TS-12,Regular Interior Clean,2026-08-17,Cleaning Bay 3,Completed,2026-08-17
+TS-13,Deep Clean & Disinfection,N/A,N/A,Pending — unassigned,2026-08-18
+TS-14,Exterior Wash,2026-08-14,Cleaning Bay 3,Completed,2026-08-14
+TS-15,Exterior Wash,2026-08-22,Cleaning Bay 5,Scheduled,2026-08-13
+TS-16,Regular Interior Clean,2026-08-20,Cleaning Bay 3,Completed,2026-08-20
+TS-17,Exterior Wash,2026-08-20,Cleaning Bay 5,Completed,2026-08-20
+TS-18,Exterior Wash,2026-08-17,Cleaning Bay 2,Completed,2026-08-17
+TS-19,Exterior Wash,2026-08-24,Cleaning Bay 3,Scheduled,2026-08-18
+TS-20,Regular Interior Clean,2026-08-22,Cleaning Bay 4,Scheduled,2026-08-17
+TS-21,Deep Clean & Disinfection,2026-08-22,Cleaning Bay 2,Scheduled,2026-08-21
+TS-22,Exterior Wash,2026-08-22,Cleaning Bay 4,Scheduled,2026-08-17
+TS-23,Regular Interior Clean,2026-08-24,Cleaning Bay 1,Scheduled,2026-08-15
+TS-24,Exterior Wash,2026-08-19,Cleaning Bay 1,Completed,2026-08-19
+TS-25,Regular Interior Clean,2026-08-24,Cleaning Bay 4,Scheduled,2026-08-12
