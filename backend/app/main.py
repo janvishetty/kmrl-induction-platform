@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Cleaned up routers (Removed staff, compliance, audit, alerts to match frontend)
 from app.routers import (
+    auth,
     induction,
     documents,
     metrics,
@@ -41,6 +42,7 @@ app.add_middleware(
 # ROUTERS
 # -----------------------------
 
+app.include_router(auth.router)
 app.include_router(induction.router)
 app.include_router(documents.router)
 app.include_router(metrics.router)

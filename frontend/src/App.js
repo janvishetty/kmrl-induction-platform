@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@/index.css";
 import { AppProvider } from "@/context/AppContext";
@@ -8,8 +9,15 @@ import Trains from "@/pages/Trains"; // <--- Imported the new Fleet Inventory pa
 import TrainPlan from "@/pages/TrainPlan";
 import Documents from "@/pages/Documents";
 import OperationsMap from "@/pages/OperationsMap";
+import LoginPage from "@/pages/LoginPage";
+
+const AUTH_KEY = "rd-admin-auth";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem(AUTH_KEY) === "true"
+  );
+
   return (
     <AppProvider>
       <BrowserRouter>
@@ -23,6 +31,26 @@ function App() {
         </Routes>
         <Kora />
         <Toaster position="top-right" />
+        {!isAuthenticated ? (
+          <LoginPage
+            onLogin={() => {
+              localStorage.setItem(AUTH_KEY, "true");
+              setIsAuthenticated(true);
+            }}
+          />
+        ) : (
+          <>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/train-plan" element={<TrainPlan />} />
+              <Route path="/documents" element={<Documents />} />
+              <Route path="/map" element={<OperationsMap />} />
+              <Route path="*" element={<Dashboard />} />
+            </Routes>
+            <Kora />
+            <Toaster position="top-right" />
+          </>
+        )}
       </BrowserRouter>
     </AppProvider>
   );

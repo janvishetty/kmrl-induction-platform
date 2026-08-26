@@ -5,6 +5,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pathlib import Path
 from app.supabase_client import supabase
+from app.routers.documents import derive_train_metadata
 import fitz  # PyMuPDF
 import docx
 import openpyxl
@@ -85,8 +86,8 @@ def backfill_documents():
         file_name = doc["file_name"]
         status = doc.get("status", "uploaded")
         
-        # Skip if already indexed
-        if status == "Indexed" and doc.get("chunks"):
+        # Skip only if already indexed AND metadata is complete
+        if status == "Indexed" and doc.get("chunks") and doc.get("train_id") and doc.get("doc_type"):
             print(f"✓ Skipping {file_name} (already indexed)")
             continue
         
@@ -101,7 +102,8 @@ def backfill_documents():
         
         # Extract metadata
         chunks, extracted_text = extract_metadata(save_path, ext)
-        
+        train_id, doc_type = derive_train_metadata(file_name)
+
         # Update document
         update_data = {
             "status": "Indexed",
@@ -110,6 +112,10 @@ def backfill_documents():
             "tags": ["backfilled", "auto-indexed", ext.replace(".", "")],
             "format": ext.replace(".", "").upper() if ext else None,
         }
+        if train_id and not doc.get("train_id"):
+            update_data["train_id"] = train_id
+        if doc_type and not doc.get("doc_type"):
+            update_data["doc_type"] = doc_type
         
         # Try to infer title from filename
         if not doc.get("title"):

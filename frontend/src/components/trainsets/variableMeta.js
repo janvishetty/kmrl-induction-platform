@@ -1,4 +1,4 @@
-import { ShieldCheck, Wrench, Megaphone, Gauge, Sparkles, ParkingSquare } from "lucide-react";
+import { ShieldCheck, Wrench, Megaphone, Gauge, Sparkles, SquareParking } from "lucide-react";
 
 export const VARIABLE_META = {
   fitness: { icon: ShieldCheck, labelKey: "var_fitness" },
@@ -6,7 +6,7 @@ export const VARIABLE_META = {
   branding: { icon: Megaphone, labelKey: "var_branding" },
   mileage: { icon: Gauge, labelKey: "var_mileage" },
   cleaning: { icon: Sparkles, labelKey: "var_cleaning" },
-  stabling: { icon: ParkingSquare, labelKey: "var_stabling" },
+  stabling: { icon: SquareParking, labelKey: "var_stabling" },
 };
 
 export const VAR_ORDER = ["fitness", "jobcards", "branding", "mileage", "cleaning", "stabling"];
