@@ -25,7 +25,7 @@ AI_ML_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..",
 if AI_ML_PATH not in sys.path:
     sys.path.insert(0, AI_ML_PATH)
 
-from src.ml_router import router as ml_router
+
 
 app = FastAPI(
     title="KMRL Ops Intelligence API",
