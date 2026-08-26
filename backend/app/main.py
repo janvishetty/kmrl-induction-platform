@@ -2,6 +2,7 @@ import sys
 import os
 from fastapi import FastAPI, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from app.database import supabase
 
 # Cleaned up routers (Removed staff, compliance, audit, alerts to match frontend)
 from app.routers import (
@@ -86,3 +87,21 @@ def health():
     return {
         "status": "healthy",
     }
+
+@app.get("/explanations")
+def get_explanation(trainset_id: str, plan_date: str):
+    try:
+        # Strictly fetch the exact date requested by the UI
+        response = supabase.table("explanations") \
+            .select("explanation") \
+            .eq("trainset_id", trainset_id) \
+            .eq("plan_date", plan_date) \
+            .execute()
+            
+        if response.data:
+            return response.data[0]
+            
+        return {"explanation": None}
+    except Exception as e:
+        print(f"Supabase Error: {e}")
+        return {"error": str(e)}
