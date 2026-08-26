@@ -13,6 +13,7 @@ from PIL import Image
 import pytesseract
 
 from app.supabase_client import supabase
+import re
 
 router = APIRouter()
 
@@ -21,6 +22,38 @@ UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".jpg", ".jpeg", ".png", ".txt"}
+
+# Maps a keyword found in the filename to the human-readable document category
+# shown in the frontend's category filter. Extend this if new document types
+# are introduced.
+DOC_TYPE_KEYWORDS = {
+    "fitness": "Fitness Certificate",
+    "job_card": "Job Card",
+    "branding": "Branding Contract",
+    "mileage": "Mileage Record",
+    "cleaning": "Cleaning Slot",
+    "stabling": "Stabling Geometry",
+}
+
+
+def derive_train_metadata(filename: str):
+    """Best-effort extraction of trainset_id and doc_type from a filename,
+    e.g. 'TS-01_fitness_cert_en.pdf' -> ('TS-01', 'Fitness Certificate').
+    Returns (None, None) if nothing matches, rather than raising."""
+    match = re.search(r"TS-?\d+", filename, re.IGNORECASE)
+    train_id = None
+    if match:
+        digits = re.search(r"\d+", match.group(0)).group(0)
+        train_id = f"TS-{digits}"
+
+    doc_type = None
+    lower_name = filename.lower()
+    for keyword, label in DOC_TYPE_KEYWORDS.items():
+        if keyword in lower_name:
+            doc_type = label
+            break
+
+    return train_id, doc_type
 
 # ==========================================
 # HELPER: Extract text/chunks based on file type
@@ -116,6 +149,7 @@ async def upload_document(file: UploadFile = File(...)):
             f.write(contents)
 
         uploaded_at = datetime.now(timezone.utc).isoformat()
+        train_id, doc_type = derive_train_metadata(file.filename)
 
         # 2. Initial Insert (Basic Metadata)
         supabase.table("documents").insert({
@@ -125,6 +159,8 @@ async def upload_document(file: UploadFile = File(...)):
             "uploaded_at": uploaded_at,
             "status": "Processing",
             "format": ext.replace(".", "").upper(),
+            "train_id": train_id,
+            "doc_type": doc_type,
         }).execute()
 
         # 3. Extract Intelligence
