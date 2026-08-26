@@ -18,12 +18,23 @@ function App() {
     () => localStorage.getItem(AUTH_KEY) === "true"
   );
 
+  if (!isAuthenticated) {
+    return (
+      <LoginPage
+        onLogin={() => {
+          localStorage.setItem(AUTH_KEY, "true");
+          setIsAuthenticated(true);
+        }}
+      />
+    );
+  }
+
   return (
     <AppProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/trains" element={<Trains />} /> {/* <--- Added /trains route */}
+          <Route path="/trains" element={<Trains />} />
           <Route path="/train-plan" element={<TrainPlan />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/map" element={<OperationsMap />} />
@@ -31,26 +42,6 @@ function App() {
         </Routes>
         <Kora />
         <Toaster position="top-right" />
-        {!isAuthenticated ? (
-          <LoginPage
-            onLogin={() => {
-              localStorage.setItem(AUTH_KEY, "true");
-              setIsAuthenticated(true);
-            }}
-          />
-        ) : (
-          <>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/train-plan" element={<TrainPlan />} />
-              <Route path="/documents" element={<Documents />} />
-              <Route path="/map" element={<OperationsMap />} />
-              <Route path="*" element={<Dashboard />} />
-            </Routes>
-            <Kora />
-            <Toaster position="top-right" />
-          </>
-        )}
       </BrowserRouter>
     </AppProvider>
   );

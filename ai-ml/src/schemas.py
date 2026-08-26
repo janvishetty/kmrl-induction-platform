@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 class TrainFeatureData(BaseModel):
-    train_id: str
+    trainset_id: str
     fitness_valid: bool
     fitness_expiry: Optional[str] = None
     issuing_authority: Optional[str] = None
@@ -23,6 +23,6 @@ class TrainFeatureData(BaseModel):
     shunting_cost: float = 1.0
 
 class AlertTrigger(BaseModel):
-    train_id: str
+    trainset_id: str
     issue_type: str
     message: str

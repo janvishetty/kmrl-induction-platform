@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-04",
+  "fitness": {
+    "validity_status": "expired",
+    "expiry_date": "2025-11-21",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "open",
+    "severity": "critical",
+    "description": "Brake pad wear beyond threshold on Bogie 2"
+  },
+  "branding": {
+    "advertiser_name": null,
+    "min_daily_exposure_km": null,
+    "priority_level": "none"
+  },
+  "mileage": {
+    "current_odometer": 53080,
+    "target_band": "48000-62000 km",
+    "deviation_status": "normal"
+  },
+  "cleaning": {
+    "slot_status": null,
+    "bay_assignment": null
+  },
+  "stabling": {
+    "current_bay": "Track 7",
+    "shunting_cost_to_service": 1
+  }
+}

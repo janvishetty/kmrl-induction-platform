@@ -1,24 +1,28 @@
 # src/ask.py
-""" KMRL Cited Q&A: ChromaDB retrieval + Gemini generation. Run demo: FastAPI later: from ask import ask_kmrl answer, sources = ask_kmrl("...", trainset_id="TS-03") """
+"""
+KORA CHATBOT
+KMRL Cited Q&A
+
+"""
 import os
 from dotenv import load_dotenv
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from google import genai
 
-load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
+load_dotenv()
 
-CHROMA_PERSIST_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "chroma_db")
+CHROMA_PERSIST_DIR = "data/chroma_db"
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
 GEMINI_MODEL = "gemini-3.6-flash"
 
-# Connect to ChromaDB 
+#connect to chromadb
 _embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL)
 _client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
-collection = _client.get_or_create_collection(name="kmrl_documents", embedding_function=_embedding_fn)
+collection = _client.get_collection(name="kmrl_documents", embedding_function=_embedding_fn)
 
-# Gemini client
-genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY"))
+# Gemini client 
+genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 
 def retrieve(query: str, trainset_id: str = None, k: int = 6):
@@ -55,7 +59,7 @@ def ask_kmrl(query: str, trainset_id: str = None, k: int = 6):
             f"doc_type: {m.get('doc_type')} | file: {m.get('source_file')}]\n{d}\n"
         )
 
-    prompt = f"""You are the KMRL Document Intelligence assistant for Kochi Metro Rail Limited.
+    prompt = f"""You are KORA, the KMRL Document Intelligence assistant for Kochi Metro Rail Limited.
 Answer the question using ONLY the context below.
 - If the answer is not in the context, say: "I don't know based on the available documents."
 - If the question is in Malayalam, answer in Malayalam.
@@ -81,7 +85,7 @@ Answer:"""
 if __name__ == "__main__":
     tests = [
         ("When does the fitness certificate for TS-03 expire?", "TS-03"),
-        ("What subsystems were inspected on TS-02?", "TS-02"), # Added filter
+        ("What subsystems were inspected on TS-02?", "TS-02"), # Added filter!
         ("ട്രെയിൻസെറ്റ് TS-03 ന്റെ ഫിറ്റ്നസ് സർട്ടിഫിക്കറ്റ് നമ്പർ എന്താണ്?", "TS-03"),
     ]
     for q, ts in tests:

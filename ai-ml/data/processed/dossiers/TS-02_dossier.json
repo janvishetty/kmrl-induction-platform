@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-02",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2027-06-05",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "closed",
+    "severity": "major",
+    "description": "Coupler alignment sensor intermittent fault"
+  },
+  "branding": {
+    "advertiser_name": "FreshCola Beverages",
+    "min_daily_exposure_km": 350,
+    "priority_level": "high"
+  },
+  "mileage": {
+    "current_odometer": 67588,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": "completed",
+    "bay_assignment": "Cleaning Bay 1"
+  },
+  "stabling": {
+    "current_bay": "Track 1",
+    "shunting_cost_to_service": 0
+  }
+}

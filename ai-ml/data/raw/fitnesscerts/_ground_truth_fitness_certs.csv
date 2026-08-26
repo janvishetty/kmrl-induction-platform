@@ -1,0 +1,26 @@
+train_id,depot_en,lang,inspection_date,valid_until,is_expired_asof_reference
+TS-01,Muttom Depot,en,2025-07-22,2026-07-22,True
+TS-02,Kalamassery Depot,en,2026-06-05,2027-06-05,False
+TS-03,Muttom Depot,ml,2026-04-02,2027-04-02,False
+TS-04,Kalamassery Depot,ml,2024-11-21,2025-11-21,True
+TS-05,Muttom Depot,ml,2026-07-09,2027-07-09,False
+TS-06,Kalamassery Depot,en,2026-04-12,2027-04-12,False
+TS-07,Muttom Depot,en,2025-12-20,2026-12-20,False
+TS-08,Kalamassery Depot,ml,2026-04-01,2027-04-01,False
+TS-09,Muttom Depot,ml,2025-12-05,2026-12-05,False
+TS-10,Kalamassery Depot,en,2026-03-02,2027-03-02,False
+TS-11,Muttom Depot,en,2026-07-19,2027-07-19,False
+TS-12,Kalamassery Depot,en,2026-05-02,2027-05-02,False
+TS-13,Muttom Depot,en,2025-12-18,2026-12-18,False
+TS-14,Kalamassery Depot,ml,2026-01-29,2027-01-29,False
+TS-15,Muttom Depot,en,2026-03-02,2027-03-02,False
+TS-16,Kalamassery Depot,en,2026-05-04,2027-05-04,False
+TS-17,Muttom Depot,en,2026-04-03,2027-04-03,False
+TS-18,Kalamassery Depot,ml,2026-01-31,2027-01-31,False
+TS-19,Muttom Depot,en,2026-05-31,2027-05-31,False
+TS-20,Kalamassery Depot,en,2026-06-05,2027-06-05,False
+TS-21,Muttom Depot,en,2025-06-18,2026-06-18,True
+TS-22,Kalamassery Depot,en,2026-01-20,2027-01-20,False
+TS-23,Muttom Depot,en,2026-01-27,2027-01-27,False
+TS-24,Kalamassery Depot,ml,2025-07-15,2026-07-15,True
+TS-25,Muttom Depot,en,2025-11-29,2026-11-29,False

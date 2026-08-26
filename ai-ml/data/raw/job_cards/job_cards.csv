@@ -1,0 +1,26 @@
+trainset_id,depot,job_card_no,date_opened,subsystem,fault_description,severity,status,date_closed,parts_required,technician
+TS-01,Kalamassery Depot,JC-TS-01-20260812,2026-08-12,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-08-12,N/A,A. Pillai
+TS-02,Muttom Depot,JC-TS-02-20260820,2026-08-20,Coupler,Coupler alignment sensor intermittent fault,Major,Closed,2026-08-20,N/A,T. Joseph
+TS-03,Kalamassery Depot,JC-TS-03-20260821,2026-08-21,Traction,Traction motor overheating alarm (unit 3),Critical,Open,,On order (ETA 3-5 days),R. Nair
+TS-04,Muttom Depot,JC-TS-04-20260819,2026-08-19,Brakes,Brake pad wear beyond threshold on Bogie 2,Critical,Open,,On order (ETA 3-5 days),T. Joseph
+TS-05,Kalamassery Depot,JC-TS-05-20260819,2026-08-19,Brakes,Brake pad wear beyond threshold on Bogie 2,Critical,Open,,On order (ETA 3-5 days),T. Joseph
+TS-06,Muttom Depot,JC-TS-06-20260820,2026-08-20,Traction,"Inverter fault code logged, no visible symptom",Major,Closed,2026-08-21,N/A,R. Nair
+TS-07,Kalamassery Depot,JC-TS-07-20260807,2026-08-07,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-08-07,N/A,K. Varghese
+TS-08,Muttom Depot,JC-TS-08-20260822,2026-08-22,Coupler,Coupler alignment sensor intermittent fault,Major,Closed,2026-08-23,N/A,R. Nair
+TS-09,Kalamassery Depot,JC-TS-09-20260820,2026-08-20,Brakes,Brake pad wear beyond threshold on Bogie 2,Critical,Open,,On order (ETA 3-5 days),A. Pillai
+TS-10,Muttom Depot,JC-TS-10-20260718,2026-07-18,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-18,N/A,R. Nair
+TS-11,Kalamassery Depot,JC-TS-11-20260726,2026-07-26,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-26,N/A,R. Nair
+TS-12,Muttom Depot,JC-TS-12-20260731,2026-07-31,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-31,N/A,R. Nair
+TS-13,Kalamassery Depot,JC-TS-13-20260717,2026-07-17,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-17,N/A,T. Joseph
+TS-14,Muttom Depot,JC-TS-14-20260801,2026-08-01,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-08-01,N/A,T. Joseph
+TS-15,Kalamassery Depot,JC-TS-15-20260821,2026-08-21,Brakes,Brake pad wear beyond threshold on Bogie 2,Critical,Open,,On order (ETA 3-5 days),S. Menon
+TS-16,Muttom Depot,JC-TS-16-20260810,2026-08-10,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-08-10,N/A,S. Menon
+TS-17,Kalamassery Depot,JC-TS-17-20260731,2026-07-31,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-31,N/A,A. Pillai
+TS-18,Muttom Depot,JC-TS-18-20260822,2026-08-22,Signalling,Onboard signalling unit firmware flag,Minor,Closed,2026-08-23,N/A,A. Pillai
+TS-19,Kalamassery Depot,JC-TS-19-20260820,2026-08-20,Pantograph,Pantograph carbon strip wear near limit,Major,Closed,2026-08-20,N/A,T. Joseph
+TS-20,Muttom Depot,JC-TS-20-20260726,2026-07-26,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-26,N/A,S. Menon
+TS-21,Kalamassery Depot,JC-TS-21-20260820,2026-08-20,Traction,Traction motor overheating alarm (unit 3),Critical,Open,,On order (ETA 3-5 days),T. Joseph
+TS-22,Muttom Depot,JC-TS-22-20260822,2026-08-22,Signalling,Onboard signalling unit firmware flag,Minor,Closed,2026-08-22,N/A,R. Nair
+TS-23,Kalamassery Depot,JC-TS-23-20260731,2026-07-31,N/A,No open work order. Routine maintenance up to date.,None,Closed,2026-07-31,N/A,A. Pillai
+TS-24,Muttom Depot,JC-TS-24-20260821,2026-08-21,Traction,Traction motor overheating alarm (unit 3),Critical,Open,,On order (ETA 3-5 days),K. Varghese
+TS-25,Kalamassery Depot,JC-TS-25-20260822,2026-08-22,Traction,"Inverter fault code logged, no visible symptom",Major,Closed,2026-08-23,N/A,S. Menon
