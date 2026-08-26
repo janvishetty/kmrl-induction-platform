@@ -1,4 +1,3 @@
-# src/optimize.py
 #KMRL Explainable Induction Planner (using PuLP).
 
 import os
