@@ -5,8 +5,8 @@ import { AppProvider } from "@/context/AppContext";
 import { Kora } from "@/components/Kora";
 import { Toaster } from "@/components/ui/sonner";
 import Dashboard from "@/pages/Dashboard";
-import Trains from "@/pages/Trains";
-import TrainPlan from "@/pages/TrainPlan";
+import Trains from "@/pages/TrainInduction"; // <--- Imported the new Fleet Inventory page
+import TrainPlan from "@/pages/FleetInventory";
 import Documents from "@/pages/Documents";
 import OperationsMap from "@/pages/OperationsMap";
 import LoginPage from "@/pages/LoginPage";
