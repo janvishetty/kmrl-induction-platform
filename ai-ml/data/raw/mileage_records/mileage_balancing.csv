@@ -1,0 +1,26 @@
+trainset_id,current_odometer_km,last_overhaul_km,fleet_target_band_km,daily_avg_run_km,deviation_status
+TS-01,64148,36912,48000-62000,215.0,Over target — candidate for Standby
+TS-02,67588,48623,48000-62000,199.8,Over target — candidate for Standby
+TS-03,42196,16118,48000-62000,181.7,Under target — priority for Service
+TS-04,53080,18798,48000-62000,197.6,Within balanced range
+TS-05,42652,25723,48000-62000,198.3,Under target — priority for Service
+TS-06,40058,14231,48000-62000,185.7,Under target — priority for Service
+TS-07,53597,29472,48000-62000,233.5,Within balanced range
+TS-08,52040,19371,48000-62000,190.6,Within balanced range
+TS-09,68976,46014,48000-62000,242.8,Over target — candidate for Standby
+TS-10,64677,43438,48000-62000,187.5,Over target — candidate for Standby
+TS-11,66249,39640,48000-62000,213.9,Over target — candidate for Standby
+TS-12,68606,51831,48000-62000,233.9,Over target — candidate for Standby
+TS-13,44449,27463,48000-62000,212.2,Under target — priority for Service
+TS-14,60236,41656,48000-62000,199.9,Within balanced range
+TS-15,50465,17892,48000-62000,215.9,Within balanced range
+TS-16,65648,44636,48000-62000,202.3,Over target — candidate for Standby
+TS-17,54371,36901,48000-62000,215.5,Within balanced range
+TS-18,44416,27759,48000-62000,232.2,Under target — priority for Service
+TS-19,38967,20911,48000-62000,254.1,Under target — priority for Service
+TS-20,53491,33042,48000-62000,212.5,Within balanced range
+TS-21,69546,47542,48000-62000,249.2,Over target — candidate for Standby
+TS-22,41842,21448,48000-62000,210.3,Under target — priority for Service
+TS-23,63586,39896,48000-62000,254.1,Over target — candidate for Standby
+TS-24,67819,43472,48000-62000,213.8,Over target — candidate for Standby
+TS-25,69894,49822,48000-62000,195.2,Over target — candidate for Standby

@@ -1,0 +1,26 @@
+trainset_id,depot,stabling_track,position,shunting_moves_required,estimated_shunting_time_min
+TS-01,Kalamassery Depot,Track 3,Inner (nested),2,16
+TS-02,Muttom Depot,Track 1,Outer (direct access),0,0
+TS-03,Kalamassery Depot,Track 4,Inner (nested),2,24
+TS-04,Muttom Depot,Track 7,Inner (nested),1,12
+TS-05,Kalamassery Depot,Track 3,Inner (nested),2,12
+TS-06,Muttom Depot,Track 3,Outer (direct access),0,0
+TS-07,Kalamassery Depot,Track 7,Inner (nested),2,14
+TS-08,Muttom Depot,Track 2,Outer (direct access),0,0
+TS-09,Kalamassery Depot,Track 1,Outer (direct access),0,0
+TS-10,Muttom Depot,Track 4,Outer (direct access),0,0
+TS-11,Kalamassery Depot,Track 5,Inner (nested),1,6
+TS-12,Muttom Depot,Track 4,Outer (direct access),0,0
+TS-13,Kalamassery Depot,Track 5,Inner (nested),2,16
+TS-14,Muttom Depot,Track 7,Outer (direct access),0,0
+TS-15,Kalamassery Depot,Track 2,Outer (direct access),0,0
+TS-16,Muttom Depot,Track 5,Inner (nested),1,10
+TS-17,Kalamassery Depot,Track 7,Outer (direct access),0,0
+TS-18,Muttom Depot,Track 6,Outer (direct access),0,0
+TS-19,Kalamassery Depot,Track 2,Outer (direct access),0,0
+TS-20,Muttom Depot,Track 4,Outer (direct access),0,0
+TS-21,Kalamassery Depot,Track 7,Inner (nested),3,36
+TS-22,Muttom Depot,Track 4,Outer (direct access),0,0
+TS-23,Kalamassery Depot,Track 2,Outer (direct access),0,0
+TS-24,Muttom Depot,Track 6,Inner (nested),3,24
+TS-25,Kalamassery Depot,Track 5,Outer (direct access),0,0
