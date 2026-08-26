@@ -1,7 +1,8 @@
 # src/ask.py
 """
-KMRL Cited Q&A: ChromaDB retrieval + Gemini generation.
-Run demo
+KORA CHATBOT
+KMRL Cited Q&A
+
 """
 import os
 from dotenv import load_dotenv
@@ -20,14 +21,14 @@ _embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL)
 _client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
 collection = _client.get_collection(name="kmrl_documents", embedding_function=_embedding_fn)
 
-# --- Gemini client ---
+# Gemini client 
 genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 
 def retrieve(query: str, trainset_id: str = None, k: int = 6):
     """Semantic search with smart fallbacks for the hackathon."""
     if trainset_id:
-        # 🚀 HACKATHON TRICK: If asking about a specific train, fetch up to 15 chunks.
+        # If asking about a specific train, fetch up to 15 chunks.
         # A train only has ~10-15 chunks total. This feeds the whole "dossier" to Gemini,
         # preventing the "split chunk" problem where the title and data are in different chunks.
         where = {"trainset_id": trainset_id}
@@ -58,7 +59,7 @@ def ask_kmrl(query: str, trainset_id: str = None, k: int = 6):
             f"doc_type: {m.get('doc_type')} | file: {m.get('source_file')}]\n{d}\n"
         )
 
-    prompt = f"""You are the KMRL Document Intelligence assistant for Kochi Metro Rail Limited.
+    prompt = f"""You are KORA, the KMRL Document Intelligence assistant for Kochi Metro Rail Limited.
 Answer the question using ONLY the context below.
 - If the answer is not in the context, say: "I don't know based on the available documents."
 - If the question is in Malayalam, answer in Malayalam.
