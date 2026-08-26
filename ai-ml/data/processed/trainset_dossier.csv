@@ -1,0 +1,26 @@
+trainset_id,fitness_status,fitness_expiry,issuing_authority,job_card_status,job_card_severity,job_card_desc,branding_advertiser,branding_min_km,branding_priority,odometer,target_band,deviation,cleaning_status,cleaning_bay,current_bay,shunting_cost
+TS-01,expired,2026-07-22,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,Malabar Gold & Diamonds,350.0,high,64148,48000-62000 km,deviated,completed,Cleaning Bay 5,Track 3,2
+TS-02,valid,2027-06-05,"Rolling Stock Engineering, KMRL",closed,major,Coupler alignment sensor intermittent fault,FreshCola Beverages,350.0,high,67588,48000-62000 km,deviated,completed,Cleaning Bay 1,Track 1,0
+TS-03,valid,2027-04-02,"Rolling Stock Engineering, KMRL",open,critical,Traction motor overheating alarm (unit 3),,,none,42196,48000-62000 km,deviated,scheduled,Cleaning Bay 1,Track 4,2
+TS-04,expired,2025-11-21,"Rolling Stock Engineering, KMRL",open,critical,Brake pad wear beyond threshold on Bogie 2,,,none,53080,48000-62000 km,normal,,,Track 7,1
+TS-05,valid,2027-07-09,"Rolling Stock Engineering, KMRL",open,critical,Brake pad wear beyond threshold on Bogie 2,OrbitMobile Networks,200.0,medium,42652,48000-62000 km,deviated,completed,Cleaning Bay 2,Track 3,2
+TS-06,valid,2027-04-12,"Rolling Stock Engineering, KMRL",closed,major,"Inverter fault code logged, no visible symptom",Kerala Tourism Board,200.0,medium,40058,48000-62000 km,deviated,completed,Cleaning Bay 5,Track 3,0
+TS-07,valid,2026-12-20,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,,,none,53597,48000-62000 km,normal,scheduled,Cleaning Bay 5,Track 7,2
+TS-08,valid,2027-04-01,"Rolling Stock Engineering, KMRL",closed,major,Coupler alignment sensor intermittent fault,,,none,52040,48000-62000 km,normal,scheduled,Cleaning Bay 3,Track 2,0
+TS-09,valid,2026-12-05,"Rolling Stock Engineering, KMRL",open,critical,Brake pad wear beyond threshold on Bogie 2,,,none,68976,48000-62000 km,deviated,completed,Cleaning Bay 3,Track 1,0
+TS-10,valid,2027-03-02,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,GreenLeaf Tea Co.,200.0,medium,64677,48000-62000 km,deviated,completed,Cleaning Bay 4,Track 4,0
+TS-11,valid,2027-07-19,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,Malabar Gold & Diamonds,300.0,high,66249,48000-62000 km,deviated,scheduled,Cleaning Bay 5,Track 5,1
+TS-12,valid,2027-05-02,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,,,none,68606,48000-62000 km,deviated,completed,Cleaning Bay 3,Track 4,0
+TS-13,valid,2026-12-18,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,,,none,44449,48000-62000 km,deviated,,,Track 5,2
+TS-14,valid,2027-01-29,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,SwiftBank Kerala,250.0,medium,60236,48000-62000 km,normal,completed,Cleaning Bay 3,Track 7,0
+TS-15,valid,2027-03-02,"Rolling Stock Engineering, KMRL",open,critical,Brake pad wear beyond threshold on Bogie 2,OrbitMobile Networks,300.0,high,50465,48000-62000 km,normal,scheduled,Cleaning Bay 5,Track 2,0
+TS-16,valid,2027-05-04,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,SwiftBank Kerala,300.0,high,65648,48000-62000 km,deviated,completed,Cleaning Bay 3,Track 5,1
+TS-17,valid,2027-04-03,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,Kerala Tourism Board,200.0,medium,54371,48000-62000 km,normal,completed,Cleaning Bay 5,Track 7,0
+TS-18,valid,2027-01-31,"Rolling Stock Engineering, KMRL",closed,minor,Onboard signalling unit firmware flag,,,none,44416,48000-62000 km,deviated,completed,Cleaning Bay 2,Track 6,0
+TS-19,valid,2027-05-31,"Rolling Stock Engineering, KMRL",closed,major,Pantograph carbon strip wear near limit,Kerala Tourism Board,250.0,medium,38967,48000-62000 km,deviated,scheduled,Cleaning Bay 3,Track 2,0
+TS-20,valid,2027-06-05,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,,,none,53491,48000-62000 km,normal,scheduled,Cleaning Bay 4,Track 4,0
+TS-21,expired,2026-06-18,"Rolling Stock Engineering, KMRL",open,critical,Traction motor overheating alarm (unit 3),,,none,69546,48000-62000 km,deviated,scheduled,Cleaning Bay 2,Track 7,3
+TS-22,valid,2027-01-20,"Rolling Stock Engineering, KMRL",closed,minor,Onboard signalling unit firmware flag,Malabar Gold & Diamonds,250.0,medium,41842,48000-62000 km,deviated,scheduled,Cleaning Bay 4,Track 4,0
+TS-23,valid,2027-01-27,"Rolling Stock Engineering, KMRL",closed,none,No open work order. Routine maintenance up to date.,,,none,63586,48000-62000 km,deviated,scheduled,Cleaning Bay 1,Track 2,0
+TS-24,expired,2026-07-15,"Rolling Stock Engineering, KMRL",open,critical,Traction motor overheating alarm (unit 3),,,none,67819,48000-62000 km,deviated,completed,Cleaning Bay 1,Track 6,3
+TS-25,valid,2026-11-29,"Rolling Stock Engineering, KMRL",closed,major,"Inverter fault code logged, no visible symptom",,,none,69894,48000-62000 km,deviated,scheduled,Cleaning Bay 4,Track 5,0

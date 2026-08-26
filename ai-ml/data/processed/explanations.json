@@ -1,0 +1,127 @@
+{
+  "TS-01": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-01 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - Fitness certificate not valid on 2026-08-27 (expiry 2026-07-22) -> forced IBL\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-02": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-02 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: active branding contract (+3.0); low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-03": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-03 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-04": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-04 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - Fitness certificate not valid on 2026-08-27 (expiry 2025-11-21) -> forced IBL\n     - CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL",
+    "sources": []
+  },
+  "TS-05": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-05 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-06": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-06 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: active branding contract (+2.0); low odometer helps balance fleet wear; low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-07": {
+    "assignment": "STANDBY",
+    "explanation": "[STANDBY] TS-07 is held in STANDBY (healthy reserve) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Healthy and available, but not required in tonight's service roster.",
+    "sources": []
+  },
+  "TS-08": {
+    "assignment": "STANDBY",
+    "explanation": "[STANDBY] TS-08 is held in STANDBY (healthy reserve) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Healthy and available, but not required in tonight's service roster.",
+    "sources": []
+  },
+  "TS-09": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-09 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-10": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-10 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: active branding contract (+2.0); low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-11": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-11 is sent to IBL (maintenance) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-12": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-12 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-13": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-13 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: low odometer helps balance fleet wear.",
+    "sources": []
+  },
+  "TS-14": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-14 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: active branding contract (+2.0); low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-15": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-15 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - CRITICAL open job card: Brake pad wear beyond threshold on Bogie 2 -> forced IBL\n     - Cleaning was still scheduled tonight, so it could not enter service.",
+    "sources": []
+  },
+  "TS-16": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-16 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: active branding contract (+3.0); low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-17": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-17 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: active branding contract (+2.0); low odometer helps balance fleet wear; low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-18": {
+    "assignment": "SERVICE",
+    "explanation": "[SERVICE] TS-18 is CLEARED FOR SERVICE on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n  Selected for service because: low odometer helps balance fleet wear; low shunting cost from current bay.",
+    "sources": []
+  },
+  "TS-19": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-19 is sent to IBL (maintenance) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-20": {
+    "assignment": "STANDBY",
+    "explanation": "[STANDBY] TS-20 is held in STANDBY (healthy reserve) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Healthy and available, but not required in tonight's service roster.",
+    "sources": []
+  },
+  "TS-21": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-21 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - Fitness certificate not valid on 2026-08-27 (expiry 2026-06-18) -> forced IBL\n     - CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-22": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-22 is sent to IBL (maintenance) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-23": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-23 is sent to IBL (maintenance) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-24": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-24 is sent to IBL (maintenance) on 2026-08-27.\n  Blocked by hard safety rule(s):\n     - Fitness certificate not valid on 2026-08-27 (expiry 2026-07-15) -> forced IBL\n     - CRITICAL open job card: Traction motor overheating alarm (unit 3) -> forced IBL\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  },
+  "TS-25": {
+    "assignment": "IBL",
+    "explanation": "[IBL] TS-25 is sent to IBL (maintenance) on 2026-08-27.\n  Passed all hard safety gates (valid fitness cert, no critical open job card).\n     - Cleaning was still scheduled tonight, so it could not enter service.\n  Maintenance rationale: open job card / deviated mileage needs attention.",
+    "sources": []
+  }
+}

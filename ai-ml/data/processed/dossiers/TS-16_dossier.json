@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-16",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2027-05-04",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "closed",
+    "severity": "none",
+    "description": "No open work order. Routine maintenance up to date."
+  },
+  "branding": {
+    "advertiser_name": "SwiftBank Kerala",
+    "min_daily_exposure_km": 300,
+    "priority_level": "high"
+  },
+  "mileage": {
+    "current_odometer": 65648,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": "completed",
+    "bay_assignment": "Cleaning Bay 3"
+  },
+  "stabling": {
+    "current_bay": "Track 5",
+    "shunting_cost_to_service": 1
+  }
+}

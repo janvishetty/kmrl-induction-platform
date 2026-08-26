@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-06",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2027-04-12",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "closed",
+    "severity": "major",
+    "description": "Inverter fault code logged, no visible symptom"
+  },
+  "branding": {
+    "advertiser_name": "Kerala Tourism Board",
+    "min_daily_exposure_km": 200,
+    "priority_level": "medium"
+  },
+  "mileage": {
+    "current_odometer": 40058,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": "completed",
+    "bay_assignment": "Cleaning Bay 5"
+  },
+  "stabling": {
+    "current_bay": "Track 3",
+    "shunting_cost_to_service": 0
+  }
+}

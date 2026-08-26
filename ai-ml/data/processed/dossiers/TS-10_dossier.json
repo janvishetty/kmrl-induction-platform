@@ -1,0 +1,31 @@
+{
+  "trainset_id": "TS-10",
+  "fitness": {
+    "validity_status": "valid",
+    "expiry_date": "2027-03-02",
+    "issuing_authority": "Rolling Stock Engineering, KMRL"
+  },
+  "job_card": {
+    "status": "closed",
+    "severity": "none",
+    "description": "No open work order. Routine maintenance up to date."
+  },
+  "branding": {
+    "advertiser_name": "GreenLeaf Tea Co.",
+    "min_daily_exposure_km": 200,
+    "priority_level": "medium"
+  },
+  "mileage": {
+    "current_odometer": 64677,
+    "target_band": "48000-62000 km",
+    "deviation_status": "deviated"
+  },
+  "cleaning": {
+    "slot_status": "completed",
+    "bay_assignment": "Cleaning Bay 4"
+  },
+  "stabling": {
+    "current_bay": "Track 4",
+    "shunting_cost_to_service": 0
+  }
+}
