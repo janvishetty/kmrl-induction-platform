@@ -8,3 +8,12 @@ export function usePlan(date) {
 export function useDocuments() {
   return useQuery({ queryKey: ["documents"], queryFn: () => api.getDocuments() });
 }
+
+// Hook for fetching live explanations
+export function useExplanation(trainsetId, date) {
+  return useQuery({
+    queryKey: ["explanation", trainsetId, date],
+    queryFn: () => api.getExplanation(trainsetId, date),
+    enabled: !!trainsetId && !!date
+  });
+}

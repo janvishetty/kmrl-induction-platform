@@ -1,9 +1,9 @@
 import { useMemo, useState, useRef } from "react";
 import { AppShell, PageHeader } from "@/components/layout/AppShell";
 import { StateBlock } from "@/components/common/StateBlock";
-import { usePlan } from "@/lib/hooks";
+import { usePlan, useExplanation } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
-import { Train, Calendar as CalendarIcon, X, ShieldCheck, Wrench, Megaphone, Gauge, Sparkles, Box, FileText, AlertTriangle } from "lucide-react";
+import { Train, Calendar as CalendarIcon, X, ShieldCheck, AlertTriangle, Sparkles } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 const translations = {
@@ -21,8 +21,10 @@ const translations = {
     subModel: "Alstom Metropolis",
     whyDecision: "Why This Decision",
     opVariables: "Operational Variables",
-    sourceDocs: "Source Documents",
-    verify: "Verify",
+    systemExplanation: "System Explanation",
+    loadingExplanation: "Loading explanation from PuLP solver...",
+    failedExplanation: "Failed to load explanation.",
+    noExplanation: "No active explanation logged for this trainset.",
     cleared: "Cleared",
     attention: "Attention",
     close: "Close",
@@ -41,8 +43,10 @@ const translations = {
     subModel: "ആൽസ്റ്റോം മെട്രോപോലിസ്",
     whyDecision: "ഈ തീരുമാനത്തിന്റെ കാരണം",
     opVariables: "ഓപ്പറേഷണൽ വേരിയബിളുകൾ",
-    sourceDocs: "സോഴ്സ് ഡോക്യുമെന്റുകൾ",
-    verify: "പരിശോധിക്കുക",
+    systemExplanation: "സിസ്റ്റം വിശദീകരണം",
+    loadingExplanation: "വിശദീകരണം ലോഡ് ചെയ്യുന്നു...",
+    failedExplanation: "വിശദീകരണം ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+    noExplanation: "ഈ ട്രെയിനിന് വിശദീകരണം ലഭ്യമല്ല.",
     cleared: "ക്ലിയർ ചെയ്തു",
     attention: "ശ്രദ്ധിക്കുക",
     close: "അടയ്ക്കുക",
@@ -53,7 +57,14 @@ export default function Trains() {
   const { lang } = useApp();
   const t = translations[lang] || translations.en;
 
-  const [selectedDate, setSelectedDate] = useState("2026-08-26");
+  // Dynamically calculate Today and Tomorrow in IST format (YYYY-MM-DD)
+  const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }); 
+  const tom = new Date();
+  tom.setDate(tom.getDate() + 1);
+  const tomorrowStr = tom.toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+
+  // Default to the dynamic current date instead of a hardcoded string
+  const [selectedDate, setSelectedDate] = useState(todayStr);
   const [selectedTrain, setSelectedTrain] = useState(null);
   const dateInputRef = useRef(null);
 
@@ -109,8 +120,10 @@ export default function Trains() {
     ];
   }, [selectedTrain]);
 
-  const trainName = selectedTrain ? (selectedTrain.trainset || selectedTrain.name || selectedTrain.id || "TS-03") : "";
-  const docPrefix = trainName ? `KMRL-${trainName}` : "KMRL-TS-01";
+  const trainName = selectedTrain ? (selectedTrain.trainset || selectedTrain.name || selectedTrain.id || selectedTrain.train_id || "TS-03") : "";
+  
+  // Dynamically fetch the explanation from Supabase for this specific train and date
+  const expQ = useExplanation(trainName, selectedDate);
 
   return (
     <AppShell>
@@ -119,18 +132,18 @@ export default function Trains() {
         action={
           <div className="flex items-center rounded-xl border border-border bg-card p-1 shadow-sm">
             <Button
-              variant={selectedDate === "2026-08-26" ? "default" : "ghost"}
+              variant={selectedDate === todayStr ? "default" : "ghost"}
               size="sm"
-              onClick={() => setSelectedDate("2026-08-26")}
-              className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === "2026-08-26" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              onClick={() => setSelectedDate(todayStr)}
+              className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === todayStr ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
             >
               {t.today}
             </Button>
             <Button
-              variant={selectedDate === "2026-08-27" ? "default" : "ghost"}
+              variant={selectedDate === tomorrowStr ? "default" : "ghost"}
               size="sm"
-              onClick={() => setSelectedDate("2026-08-27")}
-              className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === "2026-08-27" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              onClick={() => setSelectedDate(tomorrowStr)}
+              className={`rounded-lg text-xs font-medium px-4 h-8 ${selectedDate === tomorrowStr ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
             >
               {t.tomorrow}
             </Button>
@@ -143,11 +156,11 @@ export default function Trains() {
               onChange={(e) => e.target.value && setSelectedDate(e.target.value)}
             />
             <Button
-              variant={selectedDate !== "2026-08-26" && selectedDate !== "2026-08-27" ? "default" : "ghost"}
+              variant={selectedDate !== todayStr && selectedDate !== tomorrowStr ? "default" : "ghost"}
               size="sm"
               onClick={() => dateInputRef.current?.showPicker?.()}
               className={`rounded-lg text-xs font-medium px-4 h-8 flex items-center gap-2 ${
-                selectedDate !== "2026-08-26" && selectedDate !== "2026-08-27" 
+                selectedDate !== todayStr && selectedDate !== tomorrowStr 
                   ? "bg-primary text-primary-foreground shadow-sm" 
                   : "text-muted-foreground hover:text-foreground"
               }`}
@@ -212,7 +225,7 @@ export default function Trains() {
         </div>
       )}
 
-      {/* Identical Fleet Inventory Modal Card Layout */}
+      {/* Modal Layout */}
       {selectedTrain && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
           <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl border border-border p-6 shadow-2xl space-y-6">
@@ -288,23 +301,30 @@ export default function Trains() {
               </div>
             </div>
 
-            {/* Source Documents Section */}
+            {/* AI Explanation / Supabase Paragraph */}
             <div>
-              <h3 className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-wider mb-3">
-                {t.sourceDocs}
+              <h3 className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
+                <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
+                {t.systemExplanation}
               </h3>
-              <div className="space-y-2">
-                {["FIT", "JOB", "BRD", "MIL", "CLN", "STB"].map((docType) => (
-                  <div key={docType} className="flex items-center justify-between p-3 rounded-xl border border-border bg-secondary/20">
-                    <div className="flex items-center gap-2.5 font-mono text-xs font-semibold text-foreground">
-                      <FileText className="h-4 w-4 text-primary" />
-                      <span>{docPrefix}-{docType}</span>
-                    </div>
-                    <Button variant="outline" size="sm" className="font-mono text-xs h-7 px-3 cursor-pointer">
-                      {t.verify}
-                    </Button>
-                  </div>
-                ))}
+              <div className="rounded-xl border border-border bg-secondary/20 p-4">
+                {expQ.isLoading ? (
+                  <p className="text-sm font-mono text-muted-foreground animate-pulse">
+                    {t.loadingExplanation}
+                  </p>
+                ) : expQ.isError ? (
+                  <p className="text-sm text-destructive">
+                    {t.failedExplanation}
+                  </p>
+                ) : expQ.data ? (
+                  <p className="text-sm text-foreground leading-relaxed">
+                    {expQ.data}
+                  </p>
+                ) : (
+                  <p className="text-sm font-mono text-muted-foreground">
+                    {t.noExplanation}
+                  </p>
+                )}
               </div>
             </div>
 

@@ -6,10 +6,12 @@ import axios from "axios";
 import { documentsStore } from "@/lib/documentsStore";
 import { buildPlan, buildDocuments } from "@/lib/dataset";
 
-// NOTE: the backend does not use an /api prefix on any route.
-const API = `${process.env.REACT_APP_BACKEND_URL}`;
-const http = axios.create({ baseURL: API, timeout: 20000 });
+// Check for the env variable, but provide a strict fallback if it's missing or undefined
+const envUrl = process.env.REACT_APP_BACKEND_URL;
+const API = (envUrl && envUrl !== "undefined") ? envUrl : "http://localhost:8000"; 
+// ^ NOTE: If your Python backend runs on port 5000 instead of 8000, change the number above!
 
+const http = axios.create({ baseURL: API, timeout: 20000 });
 // TrainPlan/induction data intentionally still uses the local preview dataset.
 // The real backend's /ml/induction-plan endpoint only returns train IDs bucketed
 // by outcome (service/standby/ibl) and doesn't yet include the per-variable
@@ -79,5 +81,26 @@ export async function loginAdmin(username, password) {
     return data.success === true;
   } catch {
     return false;
+  }
+}
+
+// src/lib/api.js
+export async function getExplanation(trainsetId, date) {
+  try {
+    // Pass BOTH the ID and the exact date from the UI
+    const { data } = await http.get("/explanations", {
+      params: { trainset_id: trainsetId, plan_date: date }
+    });
+    
+    if (!data) return null;
+    if (typeof data === "string") return data;
+    if (data.explanation) return data.explanation;
+    if (data.data?.explanation) return data.data.explanation;
+    if (Array.isArray(data) && data[0]?.explanation) return data[0].explanation;
+    
+    return null;
+  } catch (error) {
+    console.error(`Error fetching explanation for ${trainsetId}:`, error);
+    return null;
   }
 }

@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useApp } from "@/context/AppContext";
 import { StatusBadge } from "@/components/common/StatusBadge";
-import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { VARIABLE_META, VAR_ORDER, stateTone, variableRows } from "./variableMeta";
-import * as api from "@/lib/api";
+import { useExplanation } from "@/lib/hooks";
 
-const DOC_CODE = { fitness: "FIT", jobcards: "JOB", branding: "BRD", mileage: "MIL", cleaning: "CLN", stabling: "STB" };
 const toneDot = { success: "bg-success", warning: "bg-warning", destructive: "bg-destructive" };
 const toneText = { success: "text-success", warning: "text-warning", destructive: "text-destructive" };
 const toneChip = {
@@ -30,20 +28,12 @@ function VariableDots({ reasons }) {
 }
 
 function DecisionDrawer({ ts, onClose }) {
-  const { t } = useApp();
-  const [docStatus, setDocStatus] = useState({});
-  const [verifying, setVerifying] = useState(null);
+  const { t, lang } = useApp();
+  const isMalayalam = lang === "ml" || lang?.toLowerCase()?.includes("malayalam");
 
-  const verify = async (key) => {
-    const id = `KMRL-${ts.train_id}-${DOC_CODE[key]}`;
-    setVerifying(id);
-    try {
-      const res = await api.verifyDocument(id);
-      setDocStatus((m) => ({ ...m, [id]: res.status }));
-    } finally {
-      setVerifying(null);
-    }
-  };
+  // Uses "2026-08-24" as fallback to match your Supabase DB screenshot if the date isn't passed down
+  const planDate = ts.plan_date || "2026-08-24"; 
+  const expQ = useExplanation(ts.train_id, planDate);
 
   return (
     <Sheet open onOpenChange={(o) => !o && onClose()}>
@@ -112,29 +102,31 @@ function DecisionDrawer({ ts, onClose }) {
             </div>
           </section>
 
-          {/* Source documents */}
+          {/* AI Explanation / Supabase Paragraph */}
           <section>
-            <h3 className="mono-label mb-3">{t("source_documents")}</h3>
-            <ul className="space-y-2">
-              {VAR_ORDER.map((key) => {
-                const id = `KMRL-${ts.train_id}-${DOC_CODE[key]}`;
-                const st = docStatus[id];
-                return (
-                  <li key={key} className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-3 py-2">
-                    <span className="min-w-0">
-                      <span className="block truncate font-mono text-xs font-semibold text-foreground">{id}</span>
-                    </span>
-                    {st ? (
-                      <StatusBadge status={st} />
-                    ) : (
-                      <Button variant="outline" size="sm" disabled={verifying === id} onClick={() => verify(key)}>
-                        {verifying === id ? t("verifying") : t("verify")}
-                      </Button>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+            <h3 className="mono-label mb-3 flex items-center gap-2">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
+              {isMalayalam ? "സിസ്റ്റം വിശദീകരണം" : "System Explanation"}
+            </h3>
+            <div className="rounded-lg border border-border bg-card p-4">
+              {expQ.isLoading ? (
+                <p className="text-sm font-mono text-muted-foreground animate-pulse">
+                  {isMalayalam ? "വിശദീകരണം ലോഡ് ചെയ്യുന്നു..." : "Loading explanation from PuLP solver..."}
+                </p>
+              ) : expQ.isError ? (
+                <p className="text-sm text-destructive">
+                  {isMalayalam ? "വിശദീകരണം ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല." : "Failed to load explanation."}
+                </p>
+              ) : expQ.data ? (
+                <p className="text-sm text-foreground leading-relaxed">
+                  {expQ.data}
+                </p>
+              ) : (
+                <p className="text-sm font-mono text-muted-foreground">
+                  {isMalayalam ? "ഈ ട്രെയിനിന് വിശദീകരണം ലഭ്യമല്ല." : "No active explanation logged for this trainset."}
+                </p>
+              )}
+            </div>
           </section>
         </div>
       </SheetContent>
