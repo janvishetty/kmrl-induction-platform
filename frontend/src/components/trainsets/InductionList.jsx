@@ -118,7 +118,7 @@ function DecisionDrawer({ ts, onClose }) {
                   {isMalayalam ? "വിശദീകരണം ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല." : "Failed to load explanation."}
                 </p>
               ) : expQ.data ? (
-                <p className="text-sm text-foreground leading-relaxed">
+                <p className="text-sm font-sans text-muted-foreground leading-relaxed">
                   {expQ.data}
                 </p>
               ) : (
