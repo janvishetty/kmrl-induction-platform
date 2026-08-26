@@ -11,11 +11,11 @@ function makeId() {
 
 function MarkdownMessage({ text }) {
   return (
-    <div className="kora-markdown text-sm leading-6">
+    <div className="kora-markdown text-sm leading-6 break-words min-w-0">
       <ReactMarkdown
         components={{
           p: ({ children }) => (
-            <p className="mb-3 last:mb-0">{children}</p>
+            <p className="mb-3 last:mb-0 break-words">{children}</p>
           ),
 
           strong: ({ children }) => (
@@ -345,7 +345,7 @@ export function Kora() {
                 {m.role === "kora" ? (
                   <MarkdownMessage text={m.text} />
                 ) : (
-                  <div className="whitespace-pre-wrap text-sm leading-6">
+                  <div className="whitespace-pre-wrap break-words text-sm leading-6">
                     {m.text}
                   </div>
                 )}
