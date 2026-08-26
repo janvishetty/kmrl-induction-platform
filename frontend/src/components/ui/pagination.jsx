@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button";
@@ -83,7 +83,7 @@ const PaginationEllipsis = ({
     aria-hidden
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}>
-    <MoreHorizontal className="h-4 w-4" />
+    <Ellipsis className="h-4 w-4" />
     <span className="sr-only">More pages</span>
   </span>
 )

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { FileText, TrainFront, PauseCircle, Wrench } from "lucide-react";
+import { FileText, TrainFront, CirclePause, Wrench } from "lucide-react";
 import { AppShell, PageHeader } from "@/components/layout/AppShell";
 import { DateSwitch } from "@/components/common/DateSwitch";
 import { StateBlock } from "@/components/common/StateBlock";
@@ -63,7 +63,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <KpiCard icon={FileText} label={t("kpi_documents")} value={docCount} tone="primary" />
         <KpiCard icon={TrainFront} label={t("kpi_service")} value={kpi("SERVICE")} tone="service" />
-        <KpiCard icon={PauseCircle} label={t("kpi_standby")} value={kpi("STANDBY")} tone="standby" />
+        <KpiCard icon={CirclePause} label={t("kpi_standby")} value={kpi("STANDBY")} tone="standby" />
         <KpiCard icon={Wrench} label={t("kpi_ibl")} value={kpi("IBL")} tone="ibl" />
       </div>
 

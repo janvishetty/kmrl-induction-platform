@@ -37,7 +37,7 @@ function normalizeDocument(doc) {
 export async function getDocuments() {
   try {
     const { data } = await http.get("/documents");
-    return (data || []).map(normalizeDocument);
+    return documentsStore.overlay((data || []).map(normalizeDocument));   // <-- wrap with overlay
   } catch {
     return documentsStore.overlay([...documentsStore.getUploaded(), ...buildDocuments()]);
   }
@@ -59,8 +59,8 @@ export async function uploadDocument(file) {
 export async function verifyDocument(documentId) {
   try {
     const { data } = await http.get(`/verify-document/${documentId}`);
-    // Backend returns "verified" / "tampered"; map to the AUTHENTIC label the UI expects.
     const status = data.status === "verified" ? "AUTHENTIC" : "TAMPERED";
+    documentsStore.setStatus(documentId, status);   // <-- add this line
     return { document_id: documentId, status };
   } catch {
     documentsStore.setStatus(documentId, "AUTHENTIC");
@@ -71,4 +71,13 @@ export async function verifyDocument(documentId) {
 export async function sendKoraMessage(message) {
   const { data } = await http.post("/ml/ask", { query: message });
   return data.answer;
+}
+
+export async function loginAdmin(username, password) {
+  try {
+    const { data } = await http.post("/admin/login", { username, password });
+    return data.success === true;
+  } catch {
+    return false;
+  }
 }
