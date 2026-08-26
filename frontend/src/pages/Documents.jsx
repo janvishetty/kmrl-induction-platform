@@ -26,9 +26,14 @@ export default function Documents() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["documents"] }),
     onError: () => toast.error(t("upload_error")),
   });
+  
   const verifyMut = useMutation({
     mutationFn: (id) => api.verifyDocument(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["documents"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["documents"] });
+      toast.success("Document verified and logged to Polygon Amoy blockchain!");
+    },
+    onError: () => toast.error("Verification failed."),
     onSettled: () => setVerifyingId(null),
   });
 
@@ -105,7 +110,7 @@ export default function Documents() {
       ) : (
         <div className="card-elevated overflow-hidden">
           <div className="grid grid-cols-[1fr_auto_auto] items-center gap-3 border-b border-border bg-secondary/50 px-4 py-2.5">
-            <span className="mono-label">{t("document_id")}</span>
+            <span className="mono-label">DOCUMENT</span>
             <span className="mono-label text-center">{t("verify")}</span>
             <span className="mono-label w-[120px] text-right">{t("status")}</span>
           </div>
@@ -115,9 +120,14 @@ export default function Documents() {
               return (
                 <li key={d.document_id} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-3">
                   <div className="min-w-0">
-                    <div className="truncate font-mono text-sm font-semibold text-foreground">{d.document_id}</div>
-                    <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                      {d.trainset && d.trainset !== "\u2014" && <span className="font-mono">{d.trainset}</span>}
+                    {/* Real Filename Display */}
+                    <div className="truncate font-medium text-sm text-foreground">
+                      {d.filename || d.original_filename || d.file_name || d.name || d.document_id}
+                    </div>
+                    {/* Secondary ID and metadata */}
+                    <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground mt-0.5">
+                      <span className="font-mono text-xs opacity-75">ID: {d.document_id}</span>
+                      {d.trainset && d.trainset !== "\u2014" && <span className="font-mono">· {d.trainset}</span>}
                       {d.category && <span>· {d.category}</span>}
                       {formatDateTime(d.uploaded_at) && <span className="font-mono">· {formatDateTime(d.uploaded_at)}</span>}
                     </div>
