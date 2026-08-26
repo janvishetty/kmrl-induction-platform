@@ -1,8 +1,10 @@
 import sys
 import os
+from app.routers import admin
 from fastapi import FastAPI, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import supabase
+
 
 # Cleaned up routers (Removed staff, compliance, audit, alerts to match frontend)
 from app.routers import (
@@ -51,7 +53,7 @@ app.include_router(operations.router)
 app.include_router(stations.router)
 app.include_router(trainsets.router)
 app.include_router(ml_router, prefix="/ml", tags=["ML"])
-
+app.include_router(admin.router)
 
 # -----------------------------
 # BLOCKCHAIN ENDPOINTS
