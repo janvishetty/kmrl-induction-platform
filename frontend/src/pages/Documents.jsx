@@ -38,7 +38,7 @@ export default function Documents() {
     e.target.value = "";
   };
 
-  const all = docsQ.data || [];
+  const all = useMemo(() => docsQ.data || [], [docsQ.data]);
   const trainsetOptions = useMemo(
     () => Array.from(new Set(all.map((d) => d.trainset).filter((x) => x && x !== "\u2014"))).sort(),
     [all]
