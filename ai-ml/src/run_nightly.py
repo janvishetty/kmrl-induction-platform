@@ -1,7 +1,6 @@
-# src/run_nightly.py
-"""🚀 One-command manual pipeline runner.
+""" 
+One-command manual pipeline runner.
 Runs the optimizer and everything after it, in order.
-Zero Gemini/quota cost — pure PuLP + local files + Supabase.
 
 Usage (from project root):
     python -m src.run_nightly
