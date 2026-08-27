@@ -22,7 +22,7 @@ _client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
 collection = _client.get_collection(name="kmrl_documents", embedding_function=_embedding_fn)
 
 # Gemini client 
-genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+genai_client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 
 def retrieve(query: str, trainset_id: str = None, k: int = 6):
