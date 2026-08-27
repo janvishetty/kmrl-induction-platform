@@ -106,3 +106,8 @@ def get_explanation(trainset_id: str, plan_date: str):
     except Exception as e:
         print(f"Supabase Error: {e}")
         return {"error": str(e)}
+
+
+from app.routers import ml 
+
+app.include_router(ml.router, prefix="/ml", tags=["ML"])
