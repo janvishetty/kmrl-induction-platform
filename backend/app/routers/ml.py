@@ -19,8 +19,12 @@ async def ask_kora(request: AskRequest):
         raise HTTPException(status_code=500, detail="Gemini API Key missing")
     
     try:
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(request.query)
-        return {"answer": response.text, "sources": []}
+        
+        return {
+            "answer": response.text,
+            "sources": []
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
