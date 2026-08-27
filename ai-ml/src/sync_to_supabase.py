@@ -9,18 +9,19 @@ load_dotenv()
 # Initialize Supabase client
 sb = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
-def sync_plan():
-    """Sync the main induction plan to the 'induction_plans' table."""
-    plan_path = "data/processed/induction_plan.json"
+import glob
+
+def sync_plan_file(plan_path):
+    """Upsert a single plan JSON file into the 'induction_plans' table."""
     if not os.path.exists(plan_path):
-        print("❌ induction_plan.json not found. Run `python src/optimize.py` first.")
+        print(f"❌ {plan_path} not found.")
         return
 
     with open(plan_path, encoding="utf-8") as f:
         plan = json.load(f)
-    
+
     # Upsert the plan (uses plan_date as the unique constraint)
-    response = sb.table("induction_plans").upsert(
+    sb.table("induction_plans").upsert(
         {
             "plan_date": plan["plan_date"],
             "day_type": plan["day_type"],
@@ -33,8 +34,29 @@ def sync_plan():
         },
         on_conflict="plan_date"
     ).execute()
-    
+
     print(f"Synced induction plan for {plan['plan_date']} to Supabase")
+
+
+def sync_plan():
+    """Sync today's induction plan (data/processed/induction_plan.json)."""
+    sync_plan_file("data/processed/induction_plan.json")
+
+
+def sync_future_plans():
+    """Sync every generated future plan under data/processed/future_plans/."""
+    future_dir = "data/processed/future_plans"
+    if not os.path.isdir(future_dir):
+        print("No future_plans directory found, skipping.")
+        return
+
+    files = sorted(glob.glob(os.path.join(future_dir, "plan_*.json")))
+    if not files:
+        print("No future plan files found, skipping.")
+        return
+
+    for path in files:
+        sync_plan_file(path)
 
 def sync_explanations():
     """Sync the 25 train explanations to the 'explanations' table."""
@@ -75,5 +97,6 @@ def sync_explanations():
 if __name__ == "__main__":
     print("--- Starting Supabase Sync ---")
     sync_plan()
+    sync_future_plans()
     sync_explanations()
     print("--- Sync Complete! ---")
