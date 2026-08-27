@@ -1,13 +1,12 @@
 import sys
 import os
-from app.routers import admin
 from fastapi import FastAPI, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import supabase
 
-
-# Cleaned up routers (Removed staff, compliance, audit, alerts to match frontend)
+# Cleaned up routers
 from app.routers import (
+    admin,
     auth,
     induction,
     documents,
@@ -15,17 +14,16 @@ from app.routers import (
     operations,
     stations,
     trainsets,
+    ml  # <-- ML router imported cleanly here
 )
 
-# Import the blockchain service you just added
+# Import the blockchain service 
 from app import blockchain_service as bs
 
 # --- ai-ml integration ---
 AI_ML_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "ai-ml"))
 if AI_ML_PATH not in sys.path:
     sys.path.insert(0, AI_ML_PATH)
-
-
 
 app = FastAPI(
     title="KMRL Ops Intelligence API",
@@ -53,6 +51,7 @@ app.include_router(operations.router)
 app.include_router(stations.router)
 app.include_router(trainsets.router)
 app.include_router(admin.router)
+app.include_router(ml.router, prefix="/ml", tags=["ML"])  # <-- ML router included cleanly here
 
 # -----------------------------
 # BLOCKCHAIN ENDPOINTS
@@ -106,8 +105,3 @@ def get_explanation(trainset_id: str, plan_date: str):
     except Exception as e:
         print(f"Supabase Error: {e}")
         return {"error": str(e)}
-
-
-from app.routers import ml 
-
-app.include_router(ml.router, prefix="/ml", tags=["ML"])
